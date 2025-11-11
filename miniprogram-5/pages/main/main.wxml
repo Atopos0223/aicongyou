@@ -1,0 +1,9 @@
+<view class="main-page">
+  <view class="title">欢迎来到主界面</view>
+  <view class="desc">以下为从后端获取的文本：</view>
+  <view class="content">{{content}}</view>
+  <view class="actions">
+    <button type="primary" bindtap="onRefresh" loading="{{loading}}">刷新</button>
+  </view>
+</view>
+

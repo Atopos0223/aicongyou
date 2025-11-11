@@ -1,0 +1,26 @@
+<!-- 登录界面 -->
+<view class="login-page">
+  <view class="login-card">
+    <view class="login-title">账户登录</view>
+    <van-field
+      label="账号"
+      placeholder="请输入账号"
+      value="{{account}}"
+      bind:change="onAccountChange"
+      clearable
+      border
+    />
+    <van-field
+      label="密码"
+      placeholder="请输入密码"
+      value="{{password}}"
+      password
+      bind:change="onPasswordChange"
+      clearable
+      border
+    />
+    <view class="login-button-wrap">
+      <van-button type="primary" block bind:tap="onLoginTap">登录</van-button>
+    </view>
+  </view>
+</view>
