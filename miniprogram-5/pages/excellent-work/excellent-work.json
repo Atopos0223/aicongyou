@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "优秀作业",
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index"
+  }
+}
+

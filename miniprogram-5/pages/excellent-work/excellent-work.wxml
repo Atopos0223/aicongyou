@@ -1,0 +1,9 @@
+<view class="page-container">
+  <view class="page-content">
+    <view class="page-title">优秀作业界面</view>
+    <view class="back-button-wrapper">
+      <van-button type="primary" bind:click="goBack">返回</van-button>
+    </view>
+  </view>
+</view>
+

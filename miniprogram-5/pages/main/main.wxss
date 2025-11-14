@@ -4,25 +4,134 @@
   box-sizing: border-box;
   background: #f7f8fa;
 }
-.title {
-  font-size: 36rpx;
+
+/* 课程卡片样式 */
+.course-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  margin-bottom: 32rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+/* 课程信息 */
+.course-info {
+  padding: 32rpx;
+  padding-top: 32rpx;
+}
+
+.course-title {
+  font-size: 48rpx;
   font-weight: 600;
   color: #323233;
   margin-bottom: 16rpx;
 }
-.desc {
+
+.course-term {
   font-size: 28rpx;
   color: #646566;
+  margin-bottom: 16rpx;
 }
-.content {
-  margin-top: 24rpx;
-  padding: 24rpx;
-  background: #ffffff;
-  border-radius: 12rpx;
+
+.course-desc {
+  font-size: 28rpx;
+  color: #646566;
+  line-height: 1.6;
+}
+
+/* 学习进度 */
+.progress-section {
+  padding: 0 32rpx 32rpx;
+}
+
+.progress-label {
+  font-size: 28rpx;
   color: #323233;
-  word-break: break-all;
+  margin-bottom: 16rpx;
 }
-.actions {
-  margin-top: 32rpx;
+
+.progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.progress-text {
+  font-size: 28rpx;
+  color: #1989fa;
+  font-weight: 500;
+  min-width: 80rpx;
+}
+
+/* 统计卡片 */
+.stats-section {
+  display: flex;
+  gap: 16rpx;
+  padding: 0 32rpx 32rpx;
+}
+
+.stat-card {
+  flex: 1;
+  background: #f7f8fa;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 40rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.stat-value.blue {
+  color: #1989fa;
+}
+
+.stat-value.green {
+  color: #07c160;
+}
+
+.stat-value.orange {
+  color: #ff976a;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #646566;
+}
+
+/* 进入课程按钮 */
+.enter-button-wrapper {
+  padding: 0 32rpx 32rpx;
+}
+
+.enter-button {
+  background: linear-gradient(90deg, #1989fa 0%, #7232dd 100%);
+  border-radius: 16rpx;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  box-shadow: 0 4rpx 12rpx rgba(25, 137, 250, 0.3);
+  transition: opacity 0.3s;
+}
+
+.enter-button:active {
+  opacity: 0.8;
+}
+
+.enter-button-text {
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.enter-button-icon {
+  display: flex;
+  align-items: center;
+  line-height: 1;
 }
 

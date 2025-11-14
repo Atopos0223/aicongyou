@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "AI互动讨论",
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index"
+  }
+}
+

@@ -1,0 +1,86 @@
+<view class="task-page">
+  <!-- 页面标题区域 -->
+  <view class="page-header">
+    <view class="header-left">
+      <view class="back-button" bindtap="goBack">
+        <van-icon name="arrow-left" size="40rpx" color="#323233" />
+      </view>
+      <van-icon name="like-o" size="40rpx" color="#323233" />
+      <text class="header-title">个人任务</text>
+    </view>
+    <view class="header-right">
+      <van-icon name="like-o" size="40rpx" color="#ff976a" />
+      <text class="header-score">{{totalScore}}</text>
+    </view>
+  </view>
+
+  <!-- 任务卡片列表 -->
+  <view class="task-list">
+    <view class="task-card" wx:for="{{tasks}}" wx:key="id">
+      <!-- 任务标题和标签 -->
+      <view class="task-header">
+        <view class="task-title-wrapper">
+          <text class="task-title">{{item.name}}</text>
+          <van-tag type="primary" size="medium" custom-class="task-tag">{{item.type}}</van-tag>
+        </view>
+      </view>
+
+      <!-- 任务描述 -->
+      <view class="task-desc">{{item.desc}}</view>
+
+      <!-- 指标网格 -->
+      <view class="metrics-grid">
+        <!-- 截止日期 -->
+        <view class="metric-item">
+          <view class="metric-icon-wrapper">
+            <van-icon name="clock-o" size="32rpx" color="#1989fa" />
+          </view>
+          <view class="metric-content">
+            <text class="metric-label">截止日期</text>
+            <text class="metric-value">{{item.deadline}}</text>
+          </view>
+        </view>
+
+        <!-- 提交进度 -->
+        <view class="metric-item">
+          <view class="metric-icon-wrapper">
+            <van-icon name="friends-o" size="32rpx" color="#7232dd" />
+          </view>
+          <view class="metric-content">
+            <text class="metric-label">提交进度</text>
+            <text class="metric-value">{{item.submitted}}/{{item.total}}</text>
+          </view>
+        </view>
+
+        <!-- 提交率 -->
+        <view class="metric-item">
+          <view class="metric-content">
+            <text class="metric-label">提交率</text>
+            <text class="metric-value green">{{item.submitRate}}%</text>
+          </view>
+        </view>
+
+        <!-- 热度指数 -->
+        <view class="metric-item">
+          <view class="metric-content">
+            <text class="metric-label">热度指数</text>
+            <text class="metric-value orange">{{item.popularity}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 底部按钮 -->
+      <view class="task-footer">
+        <view class="footer-button gray-button" bindtap="viewExcellentWork" data-id="{{item.id}}">
+          <van-icon name="like-o" size="32rpx" color="#ffffff" />
+          <text>查看优秀作业</text>
+        </view>
+        <view class="footer-button gradient-button" bindtap="aiDiscussion" data-id="{{item.id}}">
+          <van-icon name="chat-o" size="32rpx" color="#ffffff" />
+          <text>AI互动讨论</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
