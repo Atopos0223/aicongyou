@@ -1,33 +1,21 @@
 Page({
   data: {
-    content: '',
-    loading: false
+    courseInfo: {
+      title: '物联网设计基础',
+      term: '2024年秋季',
+      desc: '通过动手实践学习物联网核心技术',
+      progress: 65,
+      totalTasks: 12,
+      completedTasks: 8,
+      completionRate: 67
+    }
   },
   onLoad() {
-    this.fetchContent();
+    // 页面加载
   },
-  onRefresh() {
-    this.fetchContent();
-  },
-  fetchContent() {
-    if (this.data.loading) return;
-    this.setData({ loading: true });
-    wx.request({
-      url: 'http://localhost:8080/test',
-      method: 'GET',
-      success: (res) => {
-        const text = typeof res.data === 'string' ? res.data : JSON.stringify(res.data);
-        this.setData({ content: text });
-      },
-      fail: () => {
-        wx.showToast({
-          title: '获取失败',
-          icon: 'none'
-        });
-      },
-      complete: () => {
-        this.setData({ loading: false });
-      }
+  enterCourse() {
+    wx.navigateTo({
+      url: '/pages/task/task'
     });
   }
 })

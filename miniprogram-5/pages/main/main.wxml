@@ -1,9 +1,50 @@
 <view class="main-page">
-  <view class="title">欢迎来到主界面</view>
-  <view class="desc">以下为从后端获取的文本：</view>
-  <view class="content">{{content}}</view>
-  <view class="actions">
-    <button type="primary" bindtap="onRefresh" loading="{{loading}}">刷新</button>
+  <!-- 课程卡片 -->
+  <view class="course-card">
+    <!-- 课程信息 -->
+    <view class="course-info">
+      <view class="course-title">{{courseInfo.title}}</view>
+      <view class="course-term">{{courseInfo.term}}</view>
+      <view class="course-desc">{{courseInfo.desc}}</view>
+    </view>
+    
+    <!-- 学习进度 -->
+    <view class="progress-section">
+      <view class="progress-label">学习进度</view>
+      <view class="progress-wrapper">
+        <van-progress 
+          percentage="{{courseInfo.progress}}" 
+          stroke-width="8"
+          color="#1989fa"
+          inactive-color="#ebedf0"
+        />
+        <text class="progress-text">{{courseInfo.progress}}%</text>
+      </view>
+    </view>
+    
+    <!-- 统计卡片 -->
+    <view class="stats-section">
+      <view class="stat-card">
+        <view class="stat-value blue">{{courseInfo.totalTasks}}</view>
+        <view class="stat-label">总任务数</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-value green">{{courseInfo.completedTasks}}</view>
+        <view class="stat-label">已完成</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-value orange">{{courseInfo.completionRate}}%</view>
+        <view class="stat-label">完成率</view>
+      </view>
+    </view>
+    
+    <!-- 进入课程按钮 -->
+    <view class="enter-button-wrapper">
+      <view class="enter-button" bindtap="enterCourse">
+        <text class="enter-button-text">进入课程</text>
+        <van-icon name="arrow" size="32rpx" color="#fff" class="enter-button-icon" />
+      </view>
+    </view>
   </view>
 </view>
 
