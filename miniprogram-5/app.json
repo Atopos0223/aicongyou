@@ -2,7 +2,10 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/main/main"
+    "pages/main/main",
+    "pages/task/task",
+    "pages/excellent-work/excellent-work",
+    "pages/ai-discussion/ai-discussion"
   ],
   "window": {
     "navigationBarTextStyle": "black",
