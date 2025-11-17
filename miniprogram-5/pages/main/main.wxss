@@ -1,17 +1,136 @@
+/* 页面容器 */
 .main-page {
   min-height: 100vh;
-  padding: 48rpx 32rpx;
-  box-sizing: border-box;
-  background: #f7f8fa;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding-bottom: 40rpx;
 }
 
-/* 课程卡片样式 */
+/* 顶部Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40rpx 32rpx 32rpx;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.logo {
+  font-size: 48rpx;
+}
+
+.platform-name {
+  font-size: 48rpx;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.active-courses {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12rpx 20rpx;
+  border-radius: 40rpx;
+}
+
+.active-icon {
+  font-size: 32rpx;
+}
+
+.active-text {
+  font-size: 28rpx;
+  color: #ffffff;
+}
+
+/* 搜索栏 */
+.search-section {
+  padding: 0 32rpx 24rpx;
+}
+
+.custom-search {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-radius: 40rpx !important;
+  backdrop-filter: blur(10rpx);
+}
+
+.custom-search .van-search__content {
+  background: transparent !important;
+}
+
+.custom-search .van-field__input {
+  color: #ffffff !important;
+}
+
+.custom-search .van-field__input::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* 学期筛选 */
+.filter-scroll {
+  padding: 0 32rpx 32rpx;
+  white-space: nowrap;
+}
+
+.filter-section {
+  display: inline-flex;
+  gap: 16rpx;
+  min-width: max-content;
+}
+
+.filter-btn {
+  flex: none;
+  padding: 0 32rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 32rpx;
+  font-size: 28rpx;
+  color: #ffffff;
+  transition: all 0.3s;
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #7232dd 0%, #1989fa 100%);
+  color: #ffffff;
+  font-weight: 500;
+  box-shadow: 0 4rpx 12rpx rgba(114, 50, 221, 0.4);
+}
+
+/* 课程列表容器 */
+.courses-container {
+  padding: 0 32rpx;
+}
+
+/* 课程卡片 */
 .course-card {
   background: #ffffff;
   border-radius: 24rpx;
   overflow: hidden;
   margin-bottom: 32rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.course-card:active {
+  transform: scale(0.98);
+}
+
+/* 课程封面 */
+.course-header {
+  width: 100%;
+  height: 200rpx;
+  background: linear-gradient(135deg, #1989fa 0%, #7232dd 100%);
 }
 
 /* 课程信息 */
@@ -84,54 +203,26 @@
   margin-bottom: 8rpx;
 }
 
-.stat-value.blue {
-  color: #1989fa;
-}
-
-.stat-value.green {
-  color: #07c160;
-}
-
-.stat-value.orange {
-  color: #ff976a;
-}
-
 .stat-label {
   font-size: 24rpx;
   color: #646566;
 }
 
-/* 进入课程按钮 */
-.enter-button-wrapper {
-  padding: 0 32rpx 32rpx;
-}
-
-.enter-button {
-  background: linear-gradient(90deg, #1989fa 0%, #7232dd 100%);
-  border-radius: 16rpx;
-  height: 88rpx;
+/* 加载中 */
+.loading {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 12rpx;
-  box-shadow: 0 4rpx 12rpx rgba(25, 137, 250, 0.3);
-  transition: opacity 0.3s;
-}
-
-.enter-button:active {
-  opacity: 0.8;
-}
-
-.enter-button-text {
-  color: #ffffff;
-  font-size: 32rpx;
-  font-weight: 500;
-  line-height: 1;
-}
-
-.enter-button-icon {
-  display: flex;
   align-items: center;
-  line-height: 1;
+  padding: 80rpx 0;
+  color: #ffffff;
 }
 
+/* 空状态 */
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80rpx 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 28rpx;
+}
