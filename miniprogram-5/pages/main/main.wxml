@@ -1,50 +1,105 @@
 <view class="main-page">
-  <!-- 课程卡片 -->
-  <view class="course-card">
-    <!-- 课程信息 -->
-    <view class="course-info">
-      <view class="course-title">{{courseInfo.title}}</view>
-      <view class="course-term">{{courseInfo.term}}</view>
-      <view class="course-desc">{{courseInfo.desc}}</view>
+  <!-- 顶部Header -->
+  <view class="header">
+    <view class="header-left">
+      <view class="logo">📚</view>
+      <text class="platform-name">爱从游</text>
     </view>
-    
-    <!-- 学习进度 -->
-    <view class="progress-section">
-      <view class="progress-label">学习进度</view>
-      <view class="progress-wrapper">
-        <van-progress 
-          percentage="{{courseInfo.progress}}" 
-          stroke-width="8"
-          color="#1989fa"
-          inactive-color="#ebedf0"
-        />
-        <text class="progress-text">{{courseInfo.progress}}%</text>
-      </view>
-    </view>
-    
-    <!-- 统计卡片 -->
-    <view class="stats-section">
-      <view class="stat-card">
-        <view class="stat-value blue">{{courseInfo.totalTasks}}</view>
-        <view class="stat-label">总任务数</view>
-      </view>
-      <view class="stat-card">
-        <view class="stat-value green">{{courseInfo.completedTasks}}</view>
-        <view class="stat-label">已完成</view>
-      </view>
-      <view class="stat-card">
-        <view class="stat-value orange">{{courseInfo.completionRate}}%</view>
-        <view class="stat-label">完成率</view>
-      </view>
-    </view>
-    
-    <!-- 进入课程按钮 -->
-    <view class="enter-button-wrapper">
-      <view class="enter-button" bindtap="enterCourse">
-        <text class="enter-button-text">进入课程</text>
-        <van-icon name="arrow" size="32rpx" color="#fff" class="enter-button-icon" />
+    <view class="header-right">
+      <view class="active-courses">
+        <text class="active-icon">👥</text>
+        <text class="active-text">{{activeCourseCount}}个活跃课程</text>
       </view>
     </view>
   </view>
-</view>
 
+  <!-- 搜索栏 -->
+  <view class="search-section">
+    <van-search
+      value="{{searchKeyword}}"
+      placeholder="搜索课程..."
+      bind:search="onSearch"
+      bind:change="onSearchChange"
+      shape="round"
+      background="transparent"
+      custom-class="custom-search"
+    />
+  </view>
+
+  <!-- 学期筛选 -->
+  <scroll-view class="filter-scroll" scroll-x="true" enable-flex="true" scroll-with-animation="true">
+    <view class="filter-section">
+      <view 
+        class="filter-btn {{selectedTerm === item ? 'active' : ''}}"
+        wx:for="{{terms}}"
+        wx:key="index"
+        data-term="{{item}}"
+        bindtap="selectTerm"
+      >
+        {{item}}
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 课程列表 -->
+  <view class="courses-container">
+    <view 
+      class="course-card"
+      wx:for="{{courses}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="enterCourse"
+    >
+      <!-- 课程封面（渐变背景） -->
+      <view class="course-header" style="background: linear-gradient(135deg, {{item.coverColor}} 0%, {{item.coverColor}}dd 100%);">
+      </view>
+      
+      <!-- 课程信息 -->
+      <view class="course-info">
+        <view class="course-title">{{item.title}}</view>
+        <view class="course-term">{{item.term}}</view>
+        <view class="course-desc">{{item.description}}</view>
+      </view>
+      
+      <!-- 学习进度 -->
+      <view class="progress-section">
+        <view class="progress-label">学习进度</view>
+        <view class="progress-wrapper">
+          <van-progress 
+            percentage="{{item.progress}}" 
+            stroke-width="8"
+            color="{{item.coverColor}}"
+            inactive-color="#ebedf0"
+          />
+          <text class="progress-text">{{item.progress}}%</text>
+        </view>
+      </view>
+      
+      <!-- 统计卡片 -->
+      <view class="stats-section">
+        <view class="stat-card">
+          <view class="stat-value" style="color: {{item.coverColor}};">{{item.totalTasks}}</view>
+          <view class="stat-label">总任务数</view>
+        </view>
+        <view class="stat-card">
+          <view class="stat-value" style="color: {{item.coverColor}};">{{item.completedTasks}}</view>
+          <view class="stat-label">已完成</view>
+        </view>
+        <view class="stat-card">
+          <view class="stat-value" style="color: {{item.coverColor}};">{{item.completionRate}}%</view>
+          <view class="stat-label">完成率</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading" wx:if="{{loading}}">
+    <van-loading type="spinner" size="24px">加载中...</van-loading>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty" wx:if="{{!loading && courses.length === 0}}">
+    <text>暂无课程数据</text>
+  </view>
+</view>
