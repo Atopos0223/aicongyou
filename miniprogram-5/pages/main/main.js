@@ -231,5 +231,11 @@ Page({
     wx.navigateTo({
       url: `/pages/task/task?courseId=${courseId}`
     });
-  }
+  },
+  enterDashboard() {
+    wx.navigateTo({
+      url: '/pages/dashboard/index'
+    });
+  },
+  
 })

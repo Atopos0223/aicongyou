@@ -5,14 +5,17 @@
     "pages/main/main",
     "pages/task/task",
     "pages/excellent-work/excellent-work",
-    "pages/ai-discussion/ai-discussion"
+    "pages/ai-discussion/ai-discussion",
+    "pages/dashboard",
+    "pages/dashboard/index.js",
+    "pages/dashboard/index",
+    "pages/personal-tasks/index"
   ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "Weixin",
     "navigationBarBackgroundColor": "#ffffff"
   },
-  
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"
