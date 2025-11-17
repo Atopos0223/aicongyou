@@ -2,68 +2,21 @@ const API_BASE_URL = 'http://localhost:8080';
 
 Page({
   data: {
-    totalScore: 1630,
-    activeTab: 'personal',
-    courseId: null,
-    tasks: [
-      { 
-        id: 1, 
-        name: '数据处理与分析', 
-        desc: '对采集的数据进行处理和分析',
-        type: '个人任务',
-        deadline: '2024-12-22',
-        submitted: 12,
-        total: 24,
-        submitRate: 50,
-        popularity: 78
-      },
-      { 
-        id: 2, 
-        name: '系统设计与实现', 
-        desc: '完成系统的整体设计和核心功能实现',
-        type: '个人任务',
-        deadline: '2024-12-25',
-        submitted: 18,
-        total: 24,
-        submitRate: 75,
-        popularity: 92
-      },
-      { 
-        id: 3, 
-        name: '项目文档编写', 
-        desc: '编写完整的项目开发文档和使用说明',
-        type: '个人任务',
-        deadline: '2024-12-20',
-        submitted: 20,
-        total: 24,
-        submitRate: 83,
-        popularity: 65
-      }
-    ],
-    teamSummary: {},
+    loading: true,
+    error: '',
+    summary: {},
     teamTasks: [],
-    teamLoading: true,
-    teamError: ''
+    courseId: null
   },
+
   onLoad(options) {
     const courseId = options && options.courseId ? Number(options.courseId) : null;
     this.setData({ courseId });
     this.fetchTeamBoard(courseId);
   },
-  goBack() {
-    wx.navigateBack();
-  },
-  switchTab(e) {
-    const tab = e.currentTarget.dataset.tab;
-    if (tab && tab !== this.data.activeTab) {
-      this.setData({ activeTab: tab });
-      if (tab === 'team' && !this.data.teamTasks.length && !this.data.teamError) {
-        this.fetchTeamBoard(this.data.courseId);
-      }
-    }
-  },
+
   fetchTeamBoard(courseId) {
-    this.setData({ teamLoading: true, teamError: '' });
+    this.setData({ loading: true, error: '' });
     wx.request({
       url: `${API_BASE_URL}/api/team-board`,
       method: 'GET',
@@ -87,7 +40,7 @@ Page({
           });
 
           this.setData({
-            teamSummary: {
+            summary: {
               totalTeamScore: this.formatNumber(summary.totalTeamScore),
               averageContribution: this.formatNumber(summary.averageContribution),
               totalTasks: summary.totalTasks !== undefined && summary.totalTasks !== null ? summary.totalTasks : normalizedTasks.length,
@@ -95,15 +48,16 @@ Page({
               updatedAt: summary.updatedAt || ''
             },
             teamTasks: normalizedTasks,
-            teamLoading: false
+            loading: false
           });
         } else {
-          this.handleTeamError('团队任务数据获取失败');
+          this.handleError('团队看板数据获取失败');
         }
       },
-      fail: () => this.handleTeamError('网络异常，请稍后重试')
+      fail: () => this.handleError('网络异常，请稍后重试')
     });
   },
+
   formatNumber(value) {
     if (value === null || value === undefined || value === '') {
       return 0;
@@ -114,23 +68,17 @@ Page({
     }
     return Math.round(num * 100) / 100;
   },
-  handleTeamError(message) {
-    this.setData({ teamError: message, teamLoading: false });
+
+  handleError(message) {
+    this.setData({ error: message, loading: false });
   },
-  retryTeamBoard() {
+
+  retryFetch() {
     this.fetchTeamBoard(this.data.courseId);
   },
-  viewExcellentWork(e) {
-    const taskId = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: `/pages/excellent-work/excellent-work?taskId=${taskId}`
-    });
-  },
-  aiDiscussion(e) {
-    const taskId = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: `/pages/ai-discussion/ai-discussion?taskId=${taskId}`
-    });
+
+  goBack() {
+    wx.navigateBack({ delta: 1 });
   }
-})
+});
 

@@ -4,6 +4,7 @@
     "pages/logs/logs",
     "pages/main/main",
     "pages/task/task",
+    "pages/team-board/team-board",
     "pages/excellent-work/excellent-work",
     "pages/ai-discussion/ai-discussion"
   ],
