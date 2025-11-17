@@ -17,6 +17,12 @@ Page({
     wx.navigateTo({
       url: '/pages/task/task'
     });
-  }
+  },
+  enterDashboard() {
+    wx.navigateTo({
+      url: '/pages/dashboard/index'
+    });
+  },
+  
 })
 
