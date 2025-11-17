@@ -4,6 +4,17 @@
     <view class="header-left">
       <view class="logo">📚</view>
       <text class="platform-name">爱从游</text>
+  <!-- 课程卡片 -->
+  <view class="course-card">
+  <!-- 在原有内容基础上添加 -->
+<van-button type="info" block bindtap="enterDashboard" style="margin-top: 20rpx;">
+  查看个人数据看板
+</van-button>
+    <!-- 课程信息 -->
+    <view class="course-info">
+      <view class="course-title">{{courseInfo.title}}</view>
+      <view class="course-term">{{courseInfo.term}}</view>
+      <view class="course-desc">{{courseInfo.desc}}</view>
     </view>
     <view class="header-right">
       <view class="active-courses">
