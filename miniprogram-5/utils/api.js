@@ -1,8 +1,8 @@
 // DeepSeek API配置和调用工具
 const config = require('./config.js');
 
-const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
-const DEEPSEEK_API_KEY = config.DEEPSEEK_API_KEY;
+const API_BASE_URL = config.API_BASE_URL || '';
+const BACKEND_AI_ENDPOINT = `${API_BASE_URL}/api/ai/chat`;
 
 /**
  * 调用DeepSeek API获取AI回复
@@ -12,41 +12,34 @@ const DEEPSEEK_API_KEY = config.DEEPSEEK_API_KEY;
  */
 function callDeepSeekAPI(messages, options = {}) {
   return new Promise((resolve, reject) => {
-    // 调试信息：检查API密钥是否加载
-    console.log('API密钥检查:', DEEPSEEK_API_KEY ? `已配置(${DEEPSEEK_API_KEY.substring(0, 10)}...)` : '未配置');
-    
-    // 如果API_KEY未配置
-    if (!DEEPSEEK_API_KEY || DEEPSEEK_API_KEY.trim() === '') {
-      console.warn('DeepSeek API Key未配置，请在utils/config.js中设置API密钥');
-      reject(new Error('API密钥未配置，请在utils/config.js中设置您的DeepSeek API密钥'));
+    if (!API_BASE_URL) {
+      console.warn('后端服务地址未配置，请在utils/config.js中设置API_BASE_URL');
+      reject(new Error('后端服务地址未配置'));
       return;
     }
 
     wx.request({
-      url: DEEPSEEK_API_URL,
+      url: BACKEND_AI_ENDPOINT,
       method: 'POST',
       header: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+        'Content-Type': 'application/json'
       },
       data: {
         model: options.model || 'deepseek-chat',
         messages: messages,
-        temperature: options.temperature || 0.7,
-        max_tokens: options.max_tokens || 2000,
-        stream: false
+        temperature: options.temperature !== undefined ? options.temperature : 0.7,
+        max_tokens: options.max_tokens !== undefined ? options.max_tokens : 2000
       },
       success: (res) => {
-        if (res.statusCode === 200 && res.data && res.data.choices && res.data.choices.length > 0) {
-          const content = res.data.choices[0].message.content;
-          resolve(content);
+        if (res.statusCode === 200 && res.data && res.data.content) {
+          resolve(res.data.content);
         } else {
-          console.error('DeepSeek API响应错误:', res);
-          reject(new Error(res.data?.error?.message || 'API响应格式错误'));
+          console.error('后端AI接口响应错误:', res);
+          reject(new Error(res.data?.message || 'AI接口响应异常'));
         }
       },
       fail: (err) => {
-        console.error('DeepSeek API请求失败:', err);
+        console.error('后端AI接口请求失败:', err);
         reject(err);
       }
     });
@@ -90,7 +83,6 @@ function formatMessagesForAPI(messages, taskName = '', taskDesc = '') {
 
 module.exports = {
   callDeepSeekAPI,
-  formatMessagesForAPI,
-  DEEPSEEK_API_KEY
+  formatMessagesForAPI
 }
 
