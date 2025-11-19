@@ -86,6 +86,15 @@
             <text>AI互动讨论</text>
           </view>
         </view>
+        <view class="submission-full-button"
+              data-task-id="{{item.id}}"
+              data-task-name="{{item.name}}"
+              data-course-id="{{item.courseId || 0}}"
+              data-task-type="personal"
+              bindtap="goToSubmission">
+          <van-icon name="upgrade" size="34rpx" color="#ffffff" />
+          <text>提交作业</text>
+        </view>
       </view>
     </view>
   </block>
@@ -135,7 +144,6 @@
               </view>
               <text class="task-course">{{item.courseTitle}}</text>
             </view>
-
             <view class="task-desc">{{item.description}}</view>
 
             <view class="metrics-grid">
@@ -198,6 +206,16 @@
                 <van-icon name="chat-o" size="32rpx" color="#ffffff" />
                 <text>AI互动讨论</text>
               </view>
+            </view>
+            <view class="submission-full-button"
+                  data-task-id="{{item.taskId}}"
+                  data-task-name="{{item.taskName}}"
+                  data-team-name="{{item.teamName}}"
+                  data-course-id="{{item.courseId}}"
+                  data-task-type="team"
+                  bindtap="goToSubmission">
+              <van-icon name="upgrade" size="34rpx" color="#ffffff" />
+              <text>提交作业</text>
             </view>
             <view class="footer-meta">
               <text class="footer-updated">最近更新 {{teamSummary.updatedAt || ''}}</text>

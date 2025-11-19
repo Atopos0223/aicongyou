@@ -1,84 +1,66 @@
-const API_BASE_URL = 'http://localhost:8080';
-
+// pages/team-board/team-board.js
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    loading: true,
-    error: '',
-    summary: {},
-    teamTasks: [],
-    courseId: null
+
   },
 
+  /**
+   * 生命周期函数--监听页面加载
+   */
   onLoad(options) {
-    const courseId = options && options.courseId ? Number(options.courseId) : null;
-    this.setData({ courseId });
-    this.fetchTeamBoard(courseId);
+
   },
 
-  fetchTeamBoard(courseId) {
-    this.setData({ loading: true, error: '' });
-    wx.request({
-      url: `${API_BASE_URL}/api/team-board`,
-      method: 'GET',
-      data: courseId ? { courseId } : {},
-      success: (res) => {
-        if (res.statusCode === 200 && res.data) {
-          const { summary = {}, tasks = [] } = res.data;
-          const normalizedTasks = tasks.map((task) => {
-            const submittedMembers = task.submittedMembers !== undefined && task.submittedMembers !== null ? task.submittedMembers : 0;
-            const totalMembers = task.totalMembers !== undefined && task.totalMembers !== null ? task.totalMembers : 0;
-            return {
-              ...task,
-              deadline: task.deadline || '待定',
-              teamName: task.teamName || '未命名团队',
-              submittedMembers,
-              totalMembers,
-              submitRate: this.formatNumber(task.submitRate),
-              teamScore: this.formatNumber(task.teamScore),
-              individualContribution: this.formatNumber(task.individualContribution)
-            };
-          });
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady() {
 
-          this.setData({
-            summary: {
-              totalTeamScore: this.formatNumber(summary.totalTeamScore),
-              averageContribution: this.formatNumber(summary.averageContribution),
-              totalTasks: summary.totalTasks !== undefined && summary.totalTasks !== null ? summary.totalTasks : normalizedTasks.length,
-              topTeamName: summary.topTeamName || ((normalizedTasks[0] && normalizedTasks[0].teamName) || '未命名团队'),
-              updatedAt: summary.updatedAt || ''
-            },
-            teamTasks: normalizedTasks,
-            loading: false
-          });
-        } else {
-          this.handleError('团队看板数据获取失败');
-        }
-      },
-      fail: () => this.handleError('网络异常，请稍后重试')
-    });
   },
 
-  formatNumber(value) {
-    if (value === null || value === undefined || value === '') {
-      return 0;
-    }
-    const num = Number(value);
-    if (Number.isNaN(num)) {
-      return 0;
-    }
-    return Math.round(num * 100) / 100;
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow() {
+
   },
 
-  handleError(message) {
-    this.setData({ error: message, loading: false });
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide() {
+
   },
 
-  retryFetch() {
-    this.fetchTeamBoard(this.data.courseId);
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload() {
+
   },
 
-  goBack() {
-    wx.navigateBack({ delta: 1 });
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage() {
+
   }
-});
-
+})

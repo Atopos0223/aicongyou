@@ -238,6 +238,27 @@
   box-shadow: 0 6rpx 20rpx rgba(25, 137, 250, 0.2);
 }
 
+.submission-full-button {
+  margin-top: 20rpx;
+  width: 100%;
+  height: 96rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(90deg, #1989fa 0%, #7232dd 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  box-shadow: 0 8rpx 20rpx rgba(25, 137, 250, 0.25);
+}
+
+.submission-full-button text {
+  color: #ffffff;
+  font-size: 30rpx;
+}
+
 .summary-item {
   display: flex;
   flex-direction: column;

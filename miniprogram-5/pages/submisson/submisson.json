@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "团队任务提交",
+  "usingComponents": {
+    "van-icon": "@vant/weapp/icon/index",
+    "van-loading": "@vant/weapp/loading/index",
+    "van-uploader": "@vant/weapp/uploader/index",
+    "van-empty": "@vant/weapp/empty/index"
+  }
+}
+
+

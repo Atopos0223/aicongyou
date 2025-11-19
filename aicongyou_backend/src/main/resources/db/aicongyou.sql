@@ -158,9 +158,6 @@ VALUES (36, 3, 'API对接', '对接后端API接口', '个人任务', '2024-12-25
 INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`)
 VALUES (37, 3, '项目实战', '完成前端项目实战', '个人任务', '2024-12-30', NOW(), NOW());
 
--- ----------------------------
--- Table structure for team_task_board
--- ----------------------------
 DROP TABLE IF EXISTS `team_task_board`;
 CREATE TABLE `team_task_board`  (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -187,6 +184,25 @@ INSERT INTO `team_task_board` VALUES (3, 3, '交互体验组', 90.10, 3, 81.20, 
 INSERT INTO `team_task_board` VALUES (4, 4, '数据智能组', 88.40, 4, 79.50, 4, 6, 69, NOW());
 INSERT INTO `team_task_board` VALUES (5, 5, '通信协议组', 87.60, 5, 78.10, 3, 6, 71, NOW());
 INSERT INTO `team_task_board` VALUES (6, 6, '基础平台组', 85.20, 6, 75.80, 3, 6, 65, NOW());
+
+-- ----------------------------
+-- Table structure for task_submisson
+-- ----------------------------
+DROP TABLE IF EXISTS `task_submisson`;
+CREATE TABLE `task_submisson` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `task_id` int NOT NULL COMMENT '关联的任务ID',
+  `task_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '任务类型：个人任务/团队任务',
+  `team_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '团队名称（个人任务可为空）',
+  `submitter_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '提交人名称',
+  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '提交说明',
+  `file_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '文件存储路径',
+  `file_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '原始文件名',
+  `file_size` bigint NULL DEFAULT 0 COMMENT '文件大小（字节）',
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '提交时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_task_submisson_task`(`task_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for user_course_progress

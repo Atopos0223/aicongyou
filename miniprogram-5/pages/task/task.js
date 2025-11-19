@@ -3,7 +3,7 @@ const API_BASE_URL = 'http://localhost:8080';
 Page({
   data: {
     totalScore: 1630,
-    activeTab: 'personal',
+    activeTab: 'team',
     courseId: null,
     tasks: [
       { 
@@ -130,6 +130,29 @@ Page({
     const taskId = e.currentTarget.dataset.id;
     wx.navigateTo({
       url: `/pages/ai-discussion/ai-discussion?taskId=${taskId}`
+    });
+  },
+  goToSubmission(e) {
+    const { taskId, teamName, taskName, courseId, taskType } = e.currentTarget.dataset;
+    const query = [];
+    if (taskId !== undefined) {
+      query.push(`taskId=${taskId}`);
+    }
+    if (taskType) {
+      query.push(`taskType=${taskType}`);
+    }
+    if (taskName) {
+      query.push(`taskName=${encodeURIComponent(taskName)}`);
+    }
+    if (teamName) {
+      query.push(`teamName=${encodeURIComponent(teamName)}`);
+    }
+    if (courseId !== undefined) {
+      query.push(`courseId=${courseId}`);
+    }
+    const queryString = query.join('&');
+    wx.navigateTo({
+      url: queryString ? `/pages/submisson/submisson?${queryString}` : '/pages/submisson/submisson'
     });
   }
 })
