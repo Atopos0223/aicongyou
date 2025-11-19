@@ -1,5 +1,6 @@
 package com.example.aicongyou_backend.mapper;
 
+import com.example.aicongyou_backend.entity.TaskItem;
 
 import com.example.aicongyou_backend.entity.Task;
 import org.apache.ibatis.annotations.Mapper;
@@ -11,6 +12,27 @@ import java.util.Map;
 
 @Mapper
 public interface TaskMapper {
+
+    @Select("""
+            <script>
+            SELECT
+                t.id AS taskId,
+                t.course_id AS courseId,
+                t.name AS taskName,
+                t.description,
+                t.type,
+                t.deadline
+            FROM task t
+            <where>
+                1 = 1
+                <if test="taskType != null and taskType != ''">
+                    AND t.type = #{taskType}
+                </if>
+            </where>
+            ORDER BY t.deadline IS NULL, t.deadline ASC, t.id ASC
+            </script>
+            """)
+    List<TaskItem> queryTasks(@Param("taskType") String taskType);
 
     @Select("SELECT * FROM task WHERE status = 1 ORDER BY create_time DESC")
     List<Task> findActiveTasks();
