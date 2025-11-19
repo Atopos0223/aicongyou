@@ -67,8 +67,6 @@
     <!-- 快捷操作 -->
     <view class="quick-actions">
       <view class="action-buttons">
-        <van-button type="primary" icon="orders-o" bindtap="navigateToPersonalTasks">我的任务</van-button>
-        <van-button type="info" icon="todo-list-o" bindtap="navigateToTaskList">任务列表</van-button>
         <van-button type="default" icon="revoke" bindtap="navigateToMain">返回主页</van-button>
       </view>
     </view>

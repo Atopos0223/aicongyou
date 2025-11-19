@@ -1,5 +1,3 @@
-const app = getApp()
-
 Page({
   data: {
     studentInfo: {
@@ -9,19 +7,15 @@ Page({
       className: '物联网工程1班'
     },
     dashboardData: {
-      completedTasks: 8,
-      totalTasks: 12,
-      averageScore: 85.5,
-      completionRate: 67,
-      totalScore: 1630,
+      completedTasks: 0,
+      totalTasks: 0,
+      averageScore: 0,
+      completionRate: 0,
+      totalScore: 0,
       ranking: 15,
       totalStudents: 120
     },
-    recentActivities: [
-      { id: 1, title: '完成了任务：数据处理与分析', time: '2024-01-15 14:30', score: 90 },
-      { id: 2, title: '提交了作业：系统设计文档', time: '2024-01-14 10:20', score: 88 },
-      { id: 3, title: '参与了AI讨论', time: '2024-01-13 16:45', score: null }
-    ],
+    recentActivities: [],
     loading: false
   },
 
@@ -36,26 +30,53 @@ Page({
   loadDashboardData() {
     this.setData({ loading: true })
     
-    // 模拟API调用 - 实际项目中替换为真实接口
-    setTimeout(() => {
-      const mockData = {
-        completedTasks: 8,
-        totalTasks: 12,
-        averageScore: 85.5,
-        completionRate: 67,
-        totalScore: 1630,
-        ranking: 15,
-        totalStudents: 120
+    // 从后端获取数据
+    wx.request({
+      url: 'http://localhost:8080/api/course/list',
+      method: 'GET',
+      data: { userId: 1 },
+      success: (res) => {
+        if (res.data.code === 200) {
+          const courses = res.data.data || [];
+          this.calculateDashboardData(courses);
+        }
+        this.setData({ loading: false });
+      },
+      fail: (err) => {
+        console.error('获取数据失败:', err);
+        this.setData({ loading: false });
       }
-      
-      this.setData({
-        dashboardData: mockData,
-        loading: false
-      })
-      
-      // 更新缓存
-      wx.setStorageSync('dashboardData', mockData)
-    }, 1000)
+    });
+  },
+
+  calculateDashboardData(courses) {
+    let completedTasks = 0;
+    let totalTasks = 0;
+    let totalScore = 0;
+    let scoreCount = 0;
+
+    courses.forEach(course => {
+      completedTasks += course.completedTasks || 0;
+      totalTasks += course.totalTasks || 0;
+    });
+
+    const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+    const dashboardData = {
+      completedTasks: completedTasks,
+      totalTasks: totalTasks,
+      averageScore: 85.5, // 可以从数据库计算
+      completionRate: completionRate,
+      totalScore: 1630, // 可以从数据库计算
+      ranking: 15,
+      totalStudents: 120
+    };
+
+    this.setData({ 
+      dashboardData: dashboardData 
+    });
+    
+    wx.setStorageSync('dashboardData', dashboardData);
   },
 
   refreshData() {
@@ -65,23 +86,12 @@ Page({
     }
   },
 
-  navigateToPersonalTasks() {
-    wx.navigateTo({
-      url: '/pages/personal-tasks/index'
-    })
-  },
-
-  navigateToTaskList() {
-    wx.navigateTo({
-      url: '/pages/task/task'
-    })
-  },
-
+  // 删除 navigateToPersonalTasks 和 navigateToTaskList 方法
   navigateToMain() {
     wx.navigateBack()
   },
 
-  // 分享功能
+  // 其他方法保持不变...
   onShareAppMessage() {
     return {
       title: '我的学习数据看板 - 爱从游',
@@ -89,14 +99,12 @@ Page({
     }
   },
 
-  // 分享到朋友圈
   onShareTimeline() {
     return {
       title: '我的学习数据看板 - 爱从游'
     }
   },
 
-  // 下拉刷新
   onPullDownRefresh() {
     this.loadDashboardData()
     setTimeout(() => {

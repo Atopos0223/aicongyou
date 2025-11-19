@@ -9,7 +9,8 @@
     "pages/dashboard",
     "pages/dashboard/index.js",
     "pages/dashboard/index",
-    "pages/personal-tasks/index"
+    "pages/personal-tasks/index",
+    "pages/course-tasks/course-tasks"
   ],
   "window": {
     "navigationBarTextStyle": "black",
