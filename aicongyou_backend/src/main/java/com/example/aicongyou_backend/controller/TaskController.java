@@ -1,70 +1,48 @@
 package com.example.aicongyou_backend.controller;
 
 
-
 import com.example.aicongyou_backend.entity.Task;
+import com.example.aicongyou_backend.entity.TaskItem;
 import com.example.aicongyou_backend.service.TaskService;
-import com.example.aicongyou_backend.service.StudentTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/task")
-@CrossOrigin(origins = "*")
+@RequestMapping("/api/tasks")
+@CrossOrigin
 public class TaskController {
 
     @Autowired
     private TaskService taskService;
 
-    @Autowired
-    private StudentTaskService studentTaskService;
-
-    @GetMapping("/list")
-    public Map<String, Object> getCourseTasks(@RequestParam Integer courseId,
-                                              @RequestParam(defaultValue = "1") Integer userId) {
-        Map<String, Object> result = new HashMap<>();
-
-        try {
-            List<Task> tasks = taskService.getTasksByCourse(courseId, userId);
-            result.put("code", 200);
-            result.put("message", "success");
-            result.put("data", tasks);
-        } catch (Exception e) {
-            result.put("code", 500);
-            result.put("message", "服务器错误: " + e.getMessage());
-        }
-
-        return result;
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
     }
 
-    @PostMapping("/update-status")
-    public Map<String, Object> updateTaskStatus(@RequestBody Map<String, Object> params) {
-        Map<String, Object> result = new HashMap<>();
+    @GetMapping
+    public List<TaskItem> listTasks(@RequestParam(value = "taskType", required = false) String taskType) {
+        return taskService.getTasks(taskType);
+    }
 
-        try {
-            Integer taskId = (Integer) params.get("taskId");
-            Integer userId = (Integer) params.get("userId");
-            String status = (String) params.get("status");
-            Double score = params.get("score") != null ? Double.valueOf(params.get("score").toString()) : null;
+    @GetMapping("/list")
+    public List<Map<String, Object>> getTaskList(@RequestParam Long studentId) {
+        return taskService.getTasksWithStudentStatus(studentId);
+    }
 
-            boolean success = studentTaskService.updateTaskStatus(userId, taskId, status, score);
+    @GetMapping("/dashboard")
+    public Map<String, Object> getDashboard(@RequestParam Long studentId) {
+        return taskService.getStudentDashboard(studentId);
+    }
 
-            if (success) {
-                result.put("code", 200);
-                result.put("message", "任务状态更新成功");
-            } else {
-                result.put("code", 500);
-                result.put("message", "任务状态更新失败");
-            }
-        } catch (Exception e) {
-            result.put("code", 500);
-            result.put("message", "服务器错误: " + e.getMessage());
-        }
-
-        return result;
+    @GetMapping("/active")
+    public List<Task> getActiveTasks() {
+        return taskService.getActiveTasks();
     }
 }

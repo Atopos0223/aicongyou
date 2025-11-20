@@ -1,0 +1,99 @@
+<view class="submission-page">
+  <view class="page-header">
+    <view class="back-button" bindtap="goBack">
+      <van-icon name="arrow-left" size="40rpx" color="#323233" />
+    </view>
+    <view class="header-content">
+      <text class="header-title">任务提交</text>
+      <text class="header-subtitle">{{selectedTaskName || '请选择任务'}}</text>
+    </view>
+  </view>
+
+  <block wx:if="{{currentLoading}}">
+    <view class="state-card">
+      <van-loading size="32px" color="#1989fa" />
+      <text class="state-text">任务列表加载中...</text>
+    </view>
+  </block>
+
+  <block wx:elif="{{currentError}}">
+    <view class="state-card error">
+      <text class="state-text">{{currentError}}</text>
+      <view class="retry-button" bindtap="retryTasks">重新加载</view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <block wx:if="{{currentTasks.length}}">
+      <view class="form-card">
+        <view class="form-field">
+          <text class="field-label">任务类型</text>
+          <picker class="task-picker"
+                  range="{{taskCategoryOptions}}"
+                  range-key="label"
+                  value="{{selectedCategoryIndex}}"
+                  bindchange="handleCategoryChange">
+            <view class="picker-value">
+              <text class="picker-text">{{taskCategoryOptions[selectedCategoryIndex].label}}</text>
+              <van-icon name="arrow" size="28rpx" color="#c8c9cc" />
+            </view>
+          </picker>
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">选择任务</text>
+          <picker class="task-picker"
+                  range="{{currentTasks}}"
+                  range-key="taskName"
+                  value="{{selectedTaskIndex}}"
+                  bindchange="handleTaskChange">
+            <view class="picker-value">
+              <text class="picker-text">{{selectedTaskName || '请选择任务'}}</text>
+              <van-icon name="arrow" size="28rpx" color="#c8c9cc" />
+            </view>
+          </picker>
+          <view class="field-info">
+            <text class="info-chip">{{taskCategoryOptions[selectedCategoryIndex].label}}</text>
+            <text class="info-chip">截止：{{selectedTaskDeadline || '待定'}}</text>
+            <block wx:if="{{selectedCategoryValue === 'team'}}">
+              <text class="info-chip">团队：{{selectedTeamName || '未命名团队'}}</text>
+            </block>
+          </view>
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">作业说明</text>
+          <textarea class="submit-textarea"
+                    placeholder="补充提交内容、附件说明或链接..."
+                    maxlength="500"
+                    value="{{formDescription}}"
+                    bindinput="handleDescriptionInput"></textarea>
+          <text class="field-hint">{{formDescription.length}}/500</text>
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">上传附件</text>
+          <van-uploader file-list="{{fileList}}"
+                        max-count="1"
+                        accept="all"
+                        preview-size="140rpx"
+                        bind:after-read="handleFileAfterRead"
+                        bind:delete="handleFileDelete" />
+          <text class="upload-tip">支持 Word / PPT / PDF / ZIP 等常见格式</text>
+        </view>
+
+        <button class="submit-button"
+                type="primary"
+                loading="{{submitting}}"
+                disabled="{{!canSubmit || submitting}}"
+                bindtap="submitTask">
+          立即提交
+        </button>
+      </view>
+    </block>
+    <block wx:else>
+      <van-empty description="暂无可提交的任务"></van-empty>
+    </block>
+  </block>
+</view>
+

@@ -1,2 +1,232 @@
-<!--pages/task/task.wxml-->
-<text>pages/task/task.wxml</text>
+<view class="task-page">
+  <!-- 页面标题区域 -->
+  <view class="page-header">
+    <view class="header-left">
+      <view class="back-button" bindtap="goBack">
+        <van-icon name="arrow-left" size="40rpx" color="#323233" />
+      </view>
+      <!-- <van-icon name="like-o" size="40rpx" color="#323233" />
+      <text class="header-title">个人任务</text> -->
+    </view>
+    <view class="header-right">
+      <van-icon name="like-o" size="40rpx" color="#ff976a" />
+      <text class="header-score">{{totalScore}}</text>
+    </view>
+  </view>
+
+  <view class="tab-switch">
+    <view class="tab-item {{activeTab === 'personal' ? 'active' : ''}}" data-tab="personal" bindtap="switchTab">个人任务</view>
+    <view class="tab-item {{activeTab === 'team' ? 'active' : ''}}" data-tab="team" bindtap="switchTab">团队任务</view>
+  </view>
+
+  <block wx:if="{{activeTab === 'personal'}}">
+    <!-- 任务卡片列表 -->
+    <view class="task-list">
+      <view class="task-card" wx:for="{{tasks}}" wx:key="id">
+        <!-- 任务标题和标签 -->
+        <view class="task-header">
+          <view class="task-title-wrapper">
+            <text class="task-title">{{item.name}}</text>
+            <van-tag type="primary" size="medium" custom-class="task-tag">{{item.type}}</van-tag>
+          </view>
+        </view>
+
+        <!-- 任务描述 -->
+        <view class="task-desc">{{item.desc}}</view>
+
+        <!-- 指标网格 -->
+        <view class="metrics-grid">
+          <!-- 截止日期 -->
+          <view class="metric-item">
+            <view class="metric-icon-wrapper">
+              <van-icon name="clock-o" size="32rpx" color="#1989fa" />
+            </view>
+            <view class="metric-content">
+              <text class="metric-label">截止日期</text>
+              <text class="metric-value">{{item.deadline}}</text>
+            </view>
+          </view>
+
+          <!-- 提交进度 -->
+          <view class="metric-item">
+            <view class="metric-icon-wrapper">
+              <van-icon name="friends-o" size="32rpx" color="#7232dd" />
+            </view>
+            <view class="metric-content">
+              <text class="metric-label">提交进度</text>
+              <text class="metric-value">{{item.submitted}}/{{item.total}}</text>
+            </view>
+          </view>
+
+          <!-- 提交率 -->
+          <view class="metric-item">
+            <view class="metric-content">
+              <text class="metric-label">提交率</text>
+              <text class="metric-value green">{{item.submitRate}}%</text>
+            </view>
+          </view>
+
+          <!-- 热度指数 -->
+          <view class="metric-item">
+            <view class="metric-content">
+              <text class="metric-label">热度指数</text>
+              <text class="metric-value orange">{{item.popularity}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 底部按钮 -->
+        <view class="task-footer">
+          <view class="footer-button gray-button" bindtap="viewExcellentWork" data-id="{{item.id}}">
+            <van-icon name="like-o" size="32rpx" color="#ffffff" />
+            <text>查看优秀作业</text>
+          </view>
+          <view class="footer-button gradient-button" bindtap="aiDiscussion" data-id="{{item.id}}">
+            <van-icon name="chat-o" size="32rpx" color="#ffffff" />
+            <text>AI互动讨论</text>
+          </view>
+        </view>
+        <view class="submission-full-button"
+              data-task-id="{{item.id}}"
+              data-task-name="{{item.name}}"
+              data-course-id="{{item.courseId || 0}}"
+              data-task-type="personal"
+              bindtap="goToSubmission">
+          <van-icon name="upgrade" size="34rpx" color="#ffffff" />
+          <text>提交作业</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:elif="{{activeTab === 'team'}}">
+    <view class="team-summary-card">
+      <view class="summary-item">
+        <text class="summary-label">累计得分</text>
+        <text class="summary-value">{{teamSummary.totalTeamScore || 0}}</text>
+      </view>
+      <view class="summary-item">
+        <text class="summary-label">平均贡献度</text>
+        <text class="summary-value">{{teamSummary.averageContribution || 0}}%</text>
+      </view>
+      <view class="summary-item">
+        <text class="summary-label">团队任务数</text>
+        <text class="summary-value">{{teamSummary.totalTasks || 0}}</text>
+      </view>
+      <view class="summary-item">
+        <text class="summary-label">领先团队</text>
+        <text class="summary-value">{{teamSummary.topTeamName || '待定'}}</text>
+      </view>
+    </view>
+
+    <block wx:if="{{teamLoading}}">
+      <view class="team-state">
+        <van-loading size="32px" color="#1989fa" />
+        <text class="state-text">团队任务加载中...</text>
+      </view>
+    </block>
+
+    <block wx:elif="{{teamError}}">
+      <view class="team-state error">
+        <text class="state-text">{{teamError}}</text>
+        <view class="retry-button" bindtap="retryTeamBoard">重新加载</view>
+      </view>
+    </block>
+
+    <block wx:else>
+      <block wx:if="{{teamTasks.length}}">
+        <view class="task-list">
+          <view class="task-card team-card" wx:for="{{teamTasks}}" wx:key="taskId">
+            <view class="task-header">
+              <view class="task-title-wrapper">
+                <text class="task-title">{{item.taskName}}</text>
+                <van-tag type="primary" size="medium" custom-class="task-tag">{{item.teamName}}</van-tag>
+              </view>
+              <text class="task-course">{{item.courseTitle}}</text>
+            </view>
+            <view class="task-desc">{{item.description}}</view>
+
+            <view class="metrics-grid">
+              <view class="metric-item">
+                <view class="metric-icon-wrapper">
+                  <van-icon name="clock-o" size="32rpx" color="#1989fa" />
+                </view>
+                <view class="metric-content">
+                  <text class="metric-label">截止日期</text>
+                  <text class="metric-value">{{item.deadline}}</text>
+                </view>
+              </view>
+
+              <view class="metric-item">
+                <view class="metric-icon-wrapper">
+                  <van-icon name="friends-o" size="32rpx" color="#7232dd" />
+                </view>
+                <view class="metric-content">
+                  <text class="metric-label">提交情况</text>
+                  <text class="metric-value">{{item.submittedMembers}}/{{item.totalMembers}}</text>
+                </view>
+              </view>
+
+              <view class="metric-item">
+                <view class="metric-content">
+                  <text class="metric-label">提交率</text>
+                  <text class="metric-value green">{{item.submitRate}}%</text>
+                </view>
+              </view>
+
+              <view class="metric-item">
+                <view class="metric-content">
+                  <text class="metric-label">热度指数</text>
+                  <text class="metric-value orange">{{item.popularityIndex}}</text>
+                </view>
+              </view>
+            </view>
+
+            <view class="team-metrics">
+              <view class="team-metric-item">
+                <text class="team-metric-label">团队得分</text>
+                <text class="team-metric-value highlight">{{item.teamScore}}</text>
+              </view>
+              <view class="team-metric-item">
+                <text class="team-metric-label">团队排名</text>
+                <text class="team-metric-value">{{item.teamRank}}</text>
+              </view>
+              <view class="team-metric-item">
+                <text class="team-metric-label">个人贡献度</text>
+                <text class="team-metric-value">{{item.individualContribution}}%</text>
+              </view>
+            </view>
+
+            <view class="task-footer">
+              <view class="footer-button gray-button" bindtap="viewExcellentWork" data-id="{{item.taskId}}">
+                <van-icon name="like-o" size="32rpx" color="#ffffff" />
+                <text>查看优秀作业</text>
+              </view>
+              <view class="footer-button gradient-button" bindtap="aiDiscussion" data-id="{{item.taskId}}">
+                <van-icon name="chat-o" size="32rpx" color="#ffffff" />
+                <text>AI互动讨论</text>
+              </view>
+            </view>
+            <view class="submission-full-button"
+                  data-task-id="{{item.taskId}}"
+                  data-task-name="{{item.taskName}}"
+                  data-team-name="{{item.teamName}}"
+                  data-course-id="{{item.courseId}}"
+                  data-task-type="team"
+                  bindtap="goToSubmission">
+              <van-icon name="upgrade" size="34rpx" color="#ffffff" />
+              <text>提交作业</text>
+            </view>
+            <view class="footer-meta">
+              <text class="footer-updated">最近更新 {{teamSummary.updatedAt || ''}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+      <block wx:else>
+        <van-empty description="暂无团队任务"></van-empty>
+      </block>
+    </block>
+  </block>
+</view>
+
