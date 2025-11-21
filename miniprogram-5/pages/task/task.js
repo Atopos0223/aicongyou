@@ -142,9 +142,23 @@ Page({
     this.fetchTeamBoard(this.data.courseId);
   },
   viewExcellentWork(e) {
-    const taskId = e.currentTarget.dataset.id;
+    const { id, taskName, courseId, courseTitle } = e.currentTarget.dataset;
+    const query = [];
+    if (id !== undefined) {
+      query.push(`taskId=${id}`);
+    }
+    if (taskName) {
+      query.push(`taskName=${encodeURIComponent(taskName)}`);
+    }
+    if (courseId !== undefined) {
+      query.push(`courseId=${courseId}`);
+    }
+    if (courseTitle) {
+      query.push(`courseTitle=${encodeURIComponent(courseTitle)}`);
+    }
+    const queryString = query.join('&');
     wx.navigateTo({
-      url: `/pages/excellent-work/excellent-work?taskId=${taskId}`
+      url: queryString ? `/pages/excellent-work/excellent-work?${queryString}` : '/pages/excellent-work/excellent-work'
     });
   },
   aiDiscussion(e) {

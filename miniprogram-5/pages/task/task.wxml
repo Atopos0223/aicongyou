@@ -92,7 +92,12 @@
 
         <!-- 底部按钮 -->
         <view class="task-footer">
-          <view class="footer-button gray-button" bindtap="viewExcellentWork" data-id="{{item.id}}">
+          <view class="footer-button gray-button"
+                bindtap="viewExcellentWork"
+                data-id="{{item.id}}"
+                data-task-name="{{item.name}}"
+                data-course-id="{{item.courseId || courseId || 0}}"
+                data-course-title="{{item.courseTitle || ''}}">
             <van-icon name="like-o" size="32rpx" color="#ffffff" />
             <text>查看优秀作业</text>
           </view>
@@ -217,7 +222,12 @@
             </view>
 
             <view class="task-footer">
-              <view class="footer-button gray-button" bindtap="viewExcellentWork" data-id="{{item.taskId}}">
+              <view class="footer-button gray-button"
+                    bindtap="viewExcellentWork"
+                    data-id="{{item.taskId}}"
+                    data-task-name="{{item.taskName}}"
+                    data-course-id="{{item.courseId}}"
+                    data-course-title="{{item.courseTitle}}">
                 <van-icon name="like-o" size="32rpx" color="#ffffff" />
                 <text>查看优秀作业</text>
               </view>
