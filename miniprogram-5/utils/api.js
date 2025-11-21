@@ -1,7 +1,7 @@
 // DeepSeek API配置和调用工具
 const config = require('./config.js');
 
-const API_BASE_URL = config.API_BASE_URL || '';
+const API_BASE_URL = config.API_BASE_URL || 'http://localhost:8080';
 const BACKEND_AI_ENDPOINT = `${API_BASE_URL}/api/ai/chat`;
 
 /**
