@@ -62,10 +62,14 @@ Page({
   },
   fetchPersonalTasks() {
     this.setData({ loadingPersonal: true, errorPersonal: '' }, () => this.updateCurrentCategoryState());
+    const params = { taskType: 'personal' };
+    if (this.data.courseId !== null && this.data.courseId !== undefined) {
+      params.courseId = this.data.courseId;
+    }
     wx.request({
       url: `${API_BASE_URL}/api/tasks`,
       method: 'GET',
-      data: { taskType: 'personal' },
+      data: params,
       success: (res) => {
         if (res.statusCode === 200 && Array.isArray(res.data)) {
           const normalized = res.data.map((task) => ({
