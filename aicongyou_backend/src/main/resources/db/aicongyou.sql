@@ -158,32 +158,32 @@ VALUES (36, 3, 'API对接', '对接后端API接口', '个人任务', '2024-12-25
 INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`)
 VALUES (37, 3, '项目实战', '完成前端项目实战', '个人任务', '2024-12-30', NOW(), NOW());
 
-DROP TABLE IF EXISTS `team_task_board`;
-CREATE TABLE `team_task_board`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `task_id` int NOT NULL COMMENT '关联的任务ID',
-  `team_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '团队名称',
-  `team_score` decimal(6, 2) NOT NULL DEFAULT 0.00 COMMENT '团队得分',
-  `team_rank` int NOT NULL COMMENT '团队排名（越小越靠前）',
-  `individual_contribution` decimal(5, 2) NOT NULL DEFAULT 0.00 COMMENT '当前用户贡献度百分比',
-  `submitted_members` int NULL DEFAULT 0 COMMENT '已提交成员数',
-  `total_members` int NULL DEFAULT 0 COMMENT '团队总成员数',
-  `popularity_index` int NULL DEFAULT 0 COMMENT '热度指数',
-  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `uk_task_id`(`task_id`) USING BTREE,
-  CONSTRAINT `fk_team_task_board_task` FOREIGN KEY (`task_id`) REFERENCES `task`(`id`) ON DELETE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of team_task_board
--- ----------------------------
-INSERT INTO `team_task_board` VALUES (1, 1, '核心研发组', 96.50, 1, 88.00, 5, 6, 82, NOW());
-INSERT INTO `team_task_board` VALUES (2, 2, '系统工程组', 92.30, 2, 84.50, 5, 6, 77, NOW());
-INSERT INTO `team_task_board` VALUES (3, 3, '交互体验组', 90.10, 3, 81.20, 4, 6, 73, NOW());
-INSERT INTO `team_task_board` VALUES (4, 4, '数据智能组', 88.40, 4, 79.50, 4, 6, 69, NOW());
-INSERT INTO `team_task_board` VALUES (5, 5, '通信协议组', 87.60, 5, 78.10, 3, 6, 71, NOW());
-INSERT INTO `team_task_board` VALUES (6, 6, '基础平台组', 85.20, 6, 75.80, 3, 6, 65, NOW());
+# DROP TABLE IF EXISTS `team_task_board`;
+# CREATE TABLE `team_task_board`  (
+#   `id` int NOT NULL AUTO_INCREMENT,
+#   `task_id` int NOT NULL COMMENT '关联的任务ID',
+#   `team_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '团队名称',
+#   `team_score` decimal(6, 2) NOT NULL DEFAULT 0.00 COMMENT '团队得分',
+#   `team_rank` int NOT NULL COMMENT '团队排名（越小越靠前）',
+#   `individual_contribution` decimal(5, 2) NOT NULL DEFAULT 0.00 COMMENT '当前用户贡献度百分比',
+#   `submitted_members` int NULL DEFAULT 0 COMMENT '已提交成员数',
+#   `total_members` int NULL DEFAULT 0 COMMENT '团队总成员数',
+#   `popularity_index` int NULL DEFAULT 0 COMMENT '热度指数',
+#   `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+#   PRIMARY KEY (`id`) USING BTREE,
+#   UNIQUE INDEX `uk_task_id`(`task_id`) USING BTREE,
+#   CONSTRAINT `fk_team_task_board_task` FOREIGN KEY (`task_id`) REFERENCES `task`(`id`) ON DELETE CASCADE
+# ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+#
+# -- ----------------------------
+# -- Records of team_task_board
+# -- ----------------------------
+# INSERT INTO `team_task_board` VALUES (1, 1, '核心研发组', 96.50, 1, 88.00, 5, 6, 82, NOW());
+# INSERT INTO `team_task_board` VALUES (2, 2, '系统工程组', 92.30, 2, 84.50, 5, 6, 77, NOW());
+# INSERT INTO `team_task_board` VALUES (3, 3, '交互体验组', 90.10, 3, 81.20, 4, 6, 73, NOW());
+# INSERT INTO `team_task_board` VALUES (4, 4, '数据智能组', 88.40, 4, 79.50, 4, 6, 69, NOW());
+# INSERT INTO `team_task_board` VALUES (5, 5, '通信协议组', 87.60, 5, 78.10, 3, 6, 71, NOW());
+# INSERT INTO `team_task_board` VALUES (6, 6, '基础平台组', 85.20, 6, 75.80, 3, 6, 65, NOW());
 
 -- ----------------------------
 -- Table structure for task_submisson
