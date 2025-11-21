@@ -12,6 +12,8 @@ public class Task {
     private LocalDateTime deadline;
     private Integer totalStudents;
     private Integer submittedStudents;
+    private Integer submitTotal;
+    private Integer heatIndex;
     private Integer popularity;
     private Integer status; // 0-未开始 1-进行中 2-已结束
     private LocalDateTime createTime;
