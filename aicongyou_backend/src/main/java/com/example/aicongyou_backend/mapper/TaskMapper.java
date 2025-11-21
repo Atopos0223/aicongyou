@@ -28,11 +28,15 @@ public interface TaskMapper {
                 <if test="taskType != null and taskType != ''">
                     AND t.type = #{taskType}
                 </if>
+                <if test="courseId != null">
+                    AND t.course_id = #{courseId}
+                </if>
             </where>
             ORDER BY t.deadline IS NULL, t.deadline ASC, t.id ASC
             </script>
             """)
-    List<TaskItem> queryTasks(@Param("taskType") String taskType);
+    List<TaskItem> queryTasks(@Param("taskType") String taskType,
+                              @Param("courseId") Integer courseId);
 
     @Select("SELECT * FROM task WHERE status = 1 ORDER BY create_time DESC")
     List<Task> findActiveTasks();

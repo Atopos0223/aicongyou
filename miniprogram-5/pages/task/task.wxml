@@ -104,7 +104,7 @@
         <view class="submission-full-button"
               data-task-id="{{item.id}}"
               data-task-name="{{item.name}}"
-              data-course-id="{{item.courseId || 0}}"
+              data-course-id="{{item.courseId || courseId || 0}}"
               data-task-type="personal"
               bindtap="goToSubmission">
           <van-icon name="upgrade" size="34rpx" color="#ffffff" />
