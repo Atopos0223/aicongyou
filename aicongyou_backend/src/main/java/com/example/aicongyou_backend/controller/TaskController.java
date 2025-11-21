@@ -27,8 +27,9 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<TaskItem> listTasks(@RequestParam(value = "taskType", required = false) String taskType) {
-        return taskService.getTasks(taskType);
+    public List<TaskItem> listTasks(@RequestParam(value = "taskType", required = false) String taskType,
+                                    @RequestParam(value = "courseId", required = false) Integer courseId) {
+        return taskService.getTasks(taskType, courseId);
     }
 
     @GetMapping("/list")

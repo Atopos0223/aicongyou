@@ -21,9 +21,9 @@ public class TaskService {
     private TaskMapper taskMapper;
 
 
-    public List<TaskItem> getTasks(String category) {
+    public List<TaskItem> getTasks(String category, Integer courseId) {
         String normalized = normalizeCategory(category);
-        return taskMapper.queryTasks(normalized);
+        return taskMapper.queryTasks(normalized, courseId);
     }
 
     private String normalizeCategory(String category) {
