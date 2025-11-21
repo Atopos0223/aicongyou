@@ -62,4 +62,8 @@ public class TaskService {
 
         return dashboard;
     }
+
+    public List<Map<String, Object>> getPersonalTasksByCourse(Integer courseId) {
+        return taskMapper.queryPersonalTasksWithStats(courseId);
+    }
 }

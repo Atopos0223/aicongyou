@@ -45,4 +45,9 @@ public class TaskController {
     public List<Task> getActiveTasks() {
         return taskService.getActiveTasks();
     }
+
+    @GetMapping("/personal")
+    public List<Map<String, Object>> getPersonalTasks(@RequestParam(required = false) Integer courseId) {
+        return taskService.getPersonalTasksByCourse(courseId);
+    }
 }

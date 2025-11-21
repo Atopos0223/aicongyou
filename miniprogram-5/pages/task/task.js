@@ -3,43 +3,11 @@ const API_BASE_URL = 'http://localhost:8080';
 Page({
   data: {
     totalScore: 1630,
-    activeTab: 'team',
+    activeTab: 'personal',
     courseId: null,
-    tasks: [
-      { 
-        id: 1, 
-        name: '数据处理与分析', 
-        desc: '对采集的数据进行处理和分析',
-        type: '个人任务',
-        deadline: '2024-12-22',
-        submitted: 12,
-        total: 24,
-        submitRate: 50,
-        popularity: 78
-      },
-      { 
-        id: 2, 
-        name: '系统设计与实现', 
-        desc: '完成系统的整体设计和核心功能实现',
-        type: '个人任务',
-        deadline: '2024-12-25',
-        submitted: 18,
-        total: 24,
-        submitRate: 75,
-        popularity: 92
-      },
-      { 
-        id: 3, 
-        name: '项目文档编写', 
-        desc: '编写完整的项目开发文档和使用说明',
-        type: '个人任务',
-        deadline: '2024-12-20',
-        submitted: 20,
-        total: 24,
-        submitRate: 83,
-        popularity: 65
-      }
-    ],
+    tasks: [],
+    personalLoading: false,
+    personalError: '',
     teamSummary: {},
     teamTasks: [],
     teamLoading: true,
@@ -48,6 +16,7 @@ Page({
   onLoad(options) {
     const courseId = options && options.courseId ? Number(options.courseId) : null;
     this.setData({ courseId });
+    this.fetchPersonalTasks(courseId);
     this.fetchTeamBoard(courseId);
   },
   goBack() {
@@ -57,10 +26,62 @@ Page({
     const tab = e.currentTarget.dataset.tab;
     if (tab && tab !== this.data.activeTab) {
       this.setData({ activeTab: tab });
-      if (tab === 'team' && !this.data.teamTasks.length && !this.data.teamError) {
+      if (tab === 'personal' && !this.data.tasks.length && !this.data.personalError) {
+        this.fetchPersonalTasks(this.data.courseId);
+      } else if (tab === 'team' && !this.data.teamTasks.length && !this.data.teamError) {
         this.fetchTeamBoard(this.data.courseId);
       }
     }
+  },
+  fetchPersonalTasks(courseId) {
+    this.setData({ personalLoading: true, personalError: '' });
+    wx.request({
+      url: `${API_BASE_URL}/api/tasks/personal`,
+      method: 'GET',
+      data: courseId ? { courseId } : {},
+      success: (res) => {
+        if (res.statusCode === 200 && res.data) {
+          const tasks = res.data.map((item) => {
+            // 格式化日期
+            let deadline = '待定';
+            if (item.deadline) {
+              const date = new Date(item.deadline);
+              const year = date.getFullYear();
+              const month = date.getMonth() + 1;
+              const day = date.getDate();
+              const monthStr = month < 10 ? '0' + month : month;
+              const dayStr = day < 10 ? '0' + day : day;
+              deadline = `${year}-${monthStr}-${dayStr}`;
+            }
+            return {
+              id: item.taskId,
+              name: item.taskName,
+              desc: item.description || '',
+              type: item.type || '个人任务',
+              deadline: deadline,
+              submitted: item.submitted || 0,
+              total: item.total || 24,
+              submitRate: item.submitRate || 0,
+              popularity: item.popularity || 0,
+              courseId: item.courseId
+            };
+          });
+          this.setData({
+            tasks,
+            personalLoading: false
+          });
+        } else {
+          this.handlePersonalError('个人任务数据获取失败');
+        }
+      },
+      fail: () => this.handlePersonalError('网络异常，请稍后重试')
+    });
+  },
+  handlePersonalError(message) {
+    this.setData({ personalError: message, personalLoading: false });
+  },
+  retryPersonalTasks() {
+    this.fetchPersonalTasks(this.data.courseId);
   },
   fetchTeamBoard(courseId) {
     this.setData({ teamLoading: true, teamError: '' });
