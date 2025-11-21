@@ -358,6 +358,41 @@ CREATE TABLE `task_submisson` (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for excellent_work
+-- ----------------------------
+DROP TABLE IF EXISTS `excellent_work`;
+CREATE TABLE `excellent_work` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `task_id` int NOT NULL COMMENT '关联任务ID',
+  `course_id` int NOT NULL COMMENT '关联课程ID',
+  `work_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '作品标题',
+  `student_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '提交学生',
+  `team_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '团队名称',
+  `score` decimal(5,2) NULL DEFAULT NULL COMMENT '教师评分',
+  `summary` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '作品摘要',
+  `teacher_comment` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '教师评语',
+  `preview_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '预览封面图',
+  `attachment_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '附件链接',
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_excellent_work_task`(`task_id`) USING BTREE,
+  INDEX `idx_excellent_work_course`(`course_id`) USING BTREE,
+  CONSTRAINT `fk_excellent_task` FOREIGN KEY (`task_id`) REFERENCES `task`(`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_excellent_course` FOREIGN KEY (`course_id`) REFERENCES `course`(`id`) ON DELETE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of excellent_work
+-- ----------------------------
+INSERT INTO `excellent_work`
+(`id`, `task_id`, `course_id`, `work_title`, `student_name`, `team_name`, `score`, `summary`, `teacher_comment`, `preview_image`, `attachment_url`, `created_at`, `updated_at`)
+VALUES
+(1, 1, 1, '智能温室监控系统', '李浩', '核心研发组', 96.50, '利用多传感器融合实现温室环境的实时调控，并完成AI预测模型。', '逻辑清晰、数据扎实，代码结构优良，值得全班同学学习。', NULL, '/uploads/team-submissions/greenhouse.pdf', NOW(), NOW()),
+(2, 2, 1, '物联网通信协议优化方案', '赵敏', '系统工程组', 94.30, '通过分析协议瓶颈，提出轻量化通信方案并验证延迟降低20%。', '问题分析深入，实验设计扎实，对性能优化有明显效果。', NULL, '/uploads/team-submissions/protocol.zip', NOW(), NOW()),
+(3, 13, 2, 'AI模型可解释性可视化', '王凯', NULL, 95.80, '为分类模型构建可解释性面板，直观展示特征贡献。', '创新性强，界面体验好，代码规范。', NULL, '/uploads/team-submissions/explainable-ai.pdf', NOW(), NOW());
+
+-- ----------------------------
 -- Table structure for user_course_progress
 -- ----------------------------
 DROP TABLE IF EXISTS `user_course_progress`;
