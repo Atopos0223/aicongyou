@@ -1,0 +1,76 @@
+<view class="dashboard-container">
+  <!-- 加载状态 -->
+  <van-loading wx:if="{{loading}}" size="24px" vertical>加载中...</van-loading>
+
+  <view wx:else>
+    <!-- 学生信息卡片 -->
+    <view class="student-card">
+      <view class="student-header">
+        <image class="avatar" src="{{studentInfo.avatar}}" mode="aspectFill"></image>
+        <view class="student-basic">
+          <text class="name">{{studentInfo.name}}</text>
+          <text class="id">{{studentInfo.studentId}}</text>
+          <text class="class">{{studentInfo.className}}</text>
+        </view>
+        <view class="ranking">
+          <text class="ranking-text">第{{dashboardData.ranking}}名</text>
+          <text class="ranking-total">/ {{dashboardData.totalStudents}}人</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 核心数据统计 -->
+    <view class="core-stats">
+      <view class="stat-card">
+        <view class="stat-main">
+          <text class="stat-value">{{dashboardData.completedTasks}}/{{dashboardData.totalTasks}}</text>
+          <text class="stat-label">完成任务</text>
+        </view>
+        <view class="stat-progress">
+          <van-progress percentage="{{dashboardData.completionRate}}" stroke-width="8" color="#07c160" />
+        </view>
+      </view>
+
+      <view class="stat-grid">
+        <view class="stat-item">
+          <text class="stat-number">{{dashboardData.averageScore}}</text>
+          <text class="stat-desc">平均分</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-number">{{dashboardData.totalScore}}</text>
+          <text class="stat-desc">总积分</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-number">{{dashboardData.completionRate}}%</text>
+          <text class="stat-desc">完成率</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 最近活动 -->
+    <view class="recent-activities">
+      <view class="section-header">
+        <text class="section-title">最近活动</text>
+        <text class="section-more">更多</text>
+      </view>
+      <view class="activity-list">
+        <view wx:for="{{recentActivities}}" wx:key="id" class="activity-item">
+          <view class="activity-content">
+            <text class="activity-title">{{item.title}}</text>
+            <text class="activity-time">{{item.time}}</text>
+          </view>
+          <text wx:if="{{item.score}}" class="activity-score">+{{item.score}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 快捷操作 -->
+    <view class="quick-actions">
+      <view class="action-buttons">
+        <van-button type="primary" icon="orders-o" bindtap="navigateToPersonalTasks">我的任务</van-button>
+        <van-button type="info" icon="todo-list-o" bindtap="navigateToTaskList">任务列表</van-button>
+        <van-button type="default" icon="revoke" bindtap="navigateToMain">返回主页</van-button>
+      </view>
+    </view>
+  </view>
+</view>
