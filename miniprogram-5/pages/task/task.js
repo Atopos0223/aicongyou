@@ -42,6 +42,15 @@ Page({
       success: (res) => {
         if (res.statusCode === 200 && res.data) {
           const tasks = res.data.map((item) => {
+            const submitted = item.submittedCount !== undefined && item.submittedCount !== null
+              ? item.submittedCount
+              : (item.submitted || 0);
+            const total = item.submitTotal !== undefined && item.submitTotal !== null
+              ? item.submitTotal
+              : (item.total || 0);
+            const heatIndex = item.heatIndex !== undefined && item.heatIndex !== null
+              ? item.heatIndex
+              : (item.popularity || 0);
             // 格式化日期
             let deadline = '待定';
             if (item.deadline) {
@@ -59,10 +68,11 @@ Page({
               desc: item.description || '',
               type: item.type || '个人任务',
               deadline: deadline,
-              submitted: item.submitted || 0,
-              total: item.total || 24,
+              submitted,
+              total,
               submitRate: item.submitRate || 0,
-              popularity: item.popularity || 0,
+              popularity: heatIndex,
+              heatIndex,
               courseId: item.courseId
             };
           });

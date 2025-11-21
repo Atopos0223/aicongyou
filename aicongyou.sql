@@ -68,6 +68,9 @@ CREATE TABLE `task`  (
   `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '任务描述',
   `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '个人任务' COMMENT '任务类型',
   `deadline` date NULL DEFAULT NULL COMMENT '截止日期',
+  `heat_index` int NOT NULL DEFAULT 70 COMMENT '热度指数（0-100）',
+  `submit_total` int NOT NULL DEFAULT 24 COMMENT '需要提交的总人数',
+  `submitted_students` int NOT NULL DEFAULT 0 COMMENT '已提交人数',
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
@@ -119,6 +122,130 @@ INSERT INTO `task` VALUES (34, 3, '状态管理', '学习前端状态管理', '�
 INSERT INTO `task` VALUES (35, 3, '路由配置', '配置前端路由', '个人任务', '2024-12-20', NOW(), NOW());
 INSERT INTO `task` VALUES (36, 3, 'API对接', '对接后端API接口', '个人任务', '2024-12-25', NOW(), NOW());
 INSERT INTO `task` VALUES (37, 3, '项目实战', '完成前端项目实战', '个人任务', '2024-12-30', NOW(), NOW());
+
+-- 任务扩展指标：为每个任务给出热度指数和提交总人数
+UPDATE task
+SET
+    heat_index = CASE id
+        WHEN 1 THEN 96
+        WHEN 2 THEN 93
+        WHEN 3 THEN 89
+        WHEN 4 THEN 85
+        WHEN 5 THEN 82
+        WHEN 6 THEN 80
+        WHEN 7 THEN 78
+        WHEN 8 THEN 77
+        WHEN 9 THEN 75
+        WHEN 10 THEN 72
+        WHEN 11 THEN 70
+        WHEN 12 THEN 68
+        WHEN 13 THEN 98
+        WHEN 14 THEN 97
+        WHEN 15 THEN 95
+        WHEN 16 THEN 94
+        WHEN 17 THEN 92
+        WHEN 18 THEN 91
+        WHEN 19 THEN 90
+        WHEN 20 THEN 89
+        WHEN 21 THEN 88
+        WHEN 22 THEN 86
+        WHEN 23 THEN 85
+        WHEN 24 THEN 84
+        WHEN 25 THEN 83
+        WHEN 26 THEN 82
+        WHEN 27 THEN 81
+        WHEN 28 THEN 87
+        WHEN 29 THEN 86
+        WHEN 30 THEN 85
+        WHEN 31 THEN 83
+        WHEN 32 THEN 82
+        WHEN 33 THEN 80
+        WHEN 34 THEN 79
+        WHEN 35 THEN 78
+        WHEN 36 THEN 76
+        WHEN 37 THEN 75
+        ELSE heat_index
+    END,
+    submit_total = CASE id
+        WHEN 1 THEN 32
+        WHEN 2 THEN 32
+        WHEN 3 THEN 28
+        WHEN 4 THEN 30
+        WHEN 5 THEN 31
+        WHEN 6 THEN 29
+        WHEN 7 THEN 27
+        WHEN 8 THEN 28
+        WHEN 9 THEN 30
+        WHEN 10 THEN 26
+        WHEN 11 THEN 25
+        WHEN 12 THEN 24
+        WHEN 13 THEN 34
+        WHEN 14 THEN 34
+        WHEN 15 THEN 33
+        WHEN 16 THEN 33
+        WHEN 17 THEN 32
+        WHEN 18 THEN 31
+        WHEN 19 THEN 31
+        WHEN 20 THEN 30
+        WHEN 21 THEN 30
+        WHEN 22 THEN 29
+        WHEN 23 THEN 29
+        WHEN 24 THEN 28
+        WHEN 25 THEN 28
+        WHEN 26 THEN 27
+        WHEN 27 THEN 27
+        WHEN 28 THEN 26
+        WHEN 29 THEN 26
+        WHEN 30 THEN 25
+        WHEN 31 THEN 25
+        WHEN 32 THEN 24
+        WHEN 33 THEN 24
+        WHEN 34 THEN 23
+        WHEN 35 THEN 23
+        WHEN 36 THEN 22
+        WHEN 37 THEN 22
+        ELSE submit_total
+    END,
+    submitted_students = CASE id
+        WHEN 1 THEN 26
+        WHEN 2 THEN 25
+        WHEN 3 THEN 18
+        WHEN 4 THEN 21
+        WHEN 5 THEN 20
+        WHEN 6 THEN 17
+        WHEN 7 THEN 15
+        WHEN 8 THEN 14
+        WHEN 9 THEN 19
+        WHEN 10 THEN 12
+        WHEN 11 THEN 11
+        WHEN 12 THEN 10
+        WHEN 13 THEN 30
+        WHEN 14 THEN 29
+        WHEN 15 THEN 28
+        WHEN 16 THEN 26
+        WHEN 17 THEN 24
+        WHEN 18 THEN 23
+        WHEN 19 THEN 22
+        WHEN 20 THEN 21
+        WHEN 21 THEN 20
+        WHEN 22 THEN 18
+        WHEN 23 THEN 17
+        WHEN 24 THEN 16
+        WHEN 25 THEN 15
+        WHEN 26 THEN 14
+        WHEN 27 THEN 13
+        WHEN 28 THEN 12
+        WHEN 29 THEN 12
+        WHEN 30 THEN 11
+        WHEN 31 THEN 11
+        WHEN 32 THEN 10
+        WHEN 33 THEN 9
+        WHEN 34 THEN 9
+        WHEN 35 THEN 8
+        WHEN 36 THEN 8
+        WHEN 37 THEN 7
+        ELSE submitted_students
+    END;
 
 -- ----------------------------
 -- Table structure for user_course_progress
