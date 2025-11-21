@@ -1,7 +1,11 @@
 {
   "navigationBarTitleText": "AI互动讨论",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#f7f8fa",
+  "enablePullDownRefresh": false,
   "usingComponents": {
-    "van-button": "@vant/weapp/button/index"
+    "van-icon": "@vant/weapp/icon/index"
   }
 }
 
