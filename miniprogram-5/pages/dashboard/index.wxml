@@ -1,75 +1,106 @@
 <view class="dashboard-container">
+  <!-- 返回按钮 -->
+  <view class="header-bar">
+    <view class="back-button" bindtap="goBack">
+      <van-icon name="arrow-left" size="40rpx" color="#ffffff" />
+    </view>
+    <text class="page-title">个人数据看板</text>
+    <view class="header-placeholder"></view>
+  </view>
+
   <!-- 加载状态 -->
   <van-loading wx:if="{{loading}}" size="24px" vertical>加载中...</van-loading>
 
-  <view wx:else>
-    <!-- 学生信息卡片 -->
-    <view class="student-card">
-      <view class="student-header">
-        <image class="avatar" src="{{studentInfo.avatar}}" mode="aspectFill"></image>
-        <view class="student-basic">
-          <text class="name">{{studentInfo.name}}</text>
-          <text class="id">{{studentInfo.studentId}}</text>
-          <text class="class">{{studentInfo.className}}</text>
-        </view>
-        <view class="ranking">
-          <text class="ranking-text">第{{dashboardData.ranking}}名</text>
-          <text class="ranking-total">/ {{dashboardData.totalStudents}}人</text>
-        </view>
+  <view wx:else class="dashboard-content">
+    <!-- 课程总得分卡片 -->
+    <view class="score-card">
+      <view class="score-header">
+        <text class="score-label">课程总得分</text>
+        <text class="score-hint">汇总所有任务得分</text>
+      </view>
+      <view class="score-value">{{dashboardData.totalCourseScore}}</view>
+    </view>
+
+    <!-- 总排名卡片 -->
+    <view class="ranking-card">
+      <view class="ranking-header">
+        <text class="ranking-label">总排名</text>
+      </view>
+      <view class="ranking-content">
+        <text class="ranking-number">第{{dashboardData.ranking}}名</text>
+        <text class="ranking-total">/ 共{{dashboardData.totalStudents}}人</text>
       </view>
     </view>
 
-    <!-- 核心数据统计 -->
-    <view class="core-stats">
-      <view class="stat-card">
-        <view class="stat-main">
-          <text class="stat-value">{{dashboardData.completedTasks}}/{{dashboardData.totalTasks}}</text>
-          <text class="stat-label">完成任务</text>
-        </view>
-        <view class="stat-progress">
-          <van-progress percentage="{{dashboardData.completionRate}}" stroke-width="8" color="#07c160" />
-        </view>
+    <!-- 能力维度达成度分析 -->
+    <view class="ability-dimensions-card">
+      <view class="card-header">
+        <text class="card-title">能力维度达成度分析</text>
+        <text class="card-subtitle">与工程认证关联</text>
       </view>
-
-      <view class="stat-grid">
-        <view class="stat-item">
-          <text class="stat-number">{{dashboardData.averageScore}}</text>
-          <text class="stat-desc">平均分</text>
-        </view>
-        <view class="stat-item">
-          <text class="stat-number">{{dashboardData.totalScore}}</text>
-          <text class="stat-desc">总积分</text>
-        </view>
-        <view class="stat-item">
-          <text class="stat-number">{{dashboardData.completionRate}}%</text>
-          <text class="stat-desc">完成率</text>
-        </view>
-      </view>
-    </view>
-
-    <!-- 最近活动 -->
-    <view class="recent-activities">
-      <view class="section-header">
-        <text class="section-title">最近活动</text>
-        <text class="section-more">更多</text>
-      </view>
-      <view class="activity-list">
-        <view wx:for="{{recentActivities}}" wx:key="id" class="activity-item">
-          <view class="activity-content">
-            <text class="activity-title">{{item.title}}</text>
-            <text class="activity-time">{{item.time}}</text>
+      <view class="dimensions-list">
+        <view wx:for="{{abilityDimensions}}" wx:key="id" class="dimension-item">
+          <view class="dimension-header">
+            <text class="dimension-name">{{item.name}}</text>
+            <text class="dimension-percent">{{item.achievementRate}}%</text>
           </view>
-          <text wx:if="{{item.score}}" class="activity-score">+{{item.score}}</text>
+          <van-progress 
+            percentage="{{item.achievementRate}}" 
+            stroke-width="8" 
+            color="{{item.color}}"
+            inactive-color="#ebedf0"
+          />
+          <view class="dimension-desc">{{item.description}}</view>
         </view>
       </view>
     </view>
 
-    <!-- 快捷操作 -->
-    <view class="quick-actions">
-      <view class="action-buttons">
-        <van-button type="primary" icon="orders-o" bindtap="navigateToPersonalTasks">我的任务</van-button>
-        <van-button type="info" icon="todo-list-o" bindtap="navigateToTaskList">任务列表</van-button>
-        <van-button type="default" icon="revoke" bindtap="navigateToMain">返回主页</van-button>
+    <!-- 任务列表 -->
+    <view class="tasks-section">
+      <!-- 已完成任务 -->
+      <view class="task-list-card">
+        <view class="card-header">
+          <text class="card-title">已完成任务</text>
+          <text class="task-count">{{completedTasks.length}}项</text>
+        </view>
+        <view class="task-list">
+          <view wx:for="{{completedTasks}}" wx:key="id" class="task-item completed">
+            <view class="task-info">
+              <text class="task-name">{{item.name}}</text>
+              <text class="task-score">得分：{{item.score}}分</text>
+            </view>
+            <text class="task-date">{{item.completedDate}}</text>
+          </view>
+          <view wx:if="{{completedTasks.length === 0}}" class="empty-tasks">
+            <text>暂无已完成任务</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 待完成任务 -->
+      <view class="task-list-card">
+        <view class="card-header">
+          <text class="card-title">待完成任务</text>
+          <text class="task-count warning">{{pendingTasks.length}}项</text>
+        </view>
+        <view class="task-list">
+          <view wx:for="{{pendingTasks}}" wx:key="id" class="task-item pending">
+            <view class="task-info">
+              <text class="task-name">{{item.name}}</text>
+              <text class="task-deadline">截止：{{item.deadline}}</text>
+            </view>
+            <van-tag 
+              wx:if="{{item.isUrgent}}" 
+              type="danger" 
+              size="small"
+            >
+              紧急
+            </van-tag>
+          </view>
+          <view wx:if="{{pendingTasks.length === 0}}" class="empty-tasks">
+            <text>暂无待完成任务</text>
+          </view>
+        </view>
       </view>
     </view>
   </view>

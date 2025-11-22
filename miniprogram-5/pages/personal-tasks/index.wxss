@@ -1,15 +1,15 @@
 .personal-tasks-container {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: linear-gradient(135deg, #87ceeb 0%, #ffffff 100%);
 }
 
 .search-section {
-  background: white;
-  padding: 20rpx;
+  background: var(--bg-primary);
+  padding: var(--spacing-md);
 }
 
 .tab-content {
-  padding: 20rpx;
+  padding: var(--spacing-md);
   min-height: 60vh;
 }
 
@@ -25,85 +25,85 @@
 }
 
 .task-card {
-  background: white;
-  border-radius: 16rpx;
-  padding: 30rpx;
-  margin-bottom: 20rpx;
-  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.08);
-  border-left: 8rpx solid #667eea;
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  border-left: 8rpx solid var(--secondary-color);
 }
 
 .task-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 20rpx;
+  margin-bottom: var(--spacing-md);
 }
 
 .task-title-section {
   flex: 1;
-  margin-right: 20rpx;
+  margin-right: var(--spacing-md);
 }
 
 .task-name {
   display: block;
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 12rpx;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
   line-height: 1.4;
 }
 
 .task-type {
-  font-size: 24rpx;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   white-space: nowrap;
 }
 
 .task-desc {
   display: block;
-  font-size: 28rpx;
-  color: #666;
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
   line-height: 1.5;
-  margin-bottom: 25rpx;
+  margin-bottom: var(--spacing-lg);
 }
 
 .progress-section {
-  margin-bottom: 25rpx;
+  margin-bottom: var(--spacing-lg);
 }
 
 .progress-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15rpx;
+  margin-bottom: var(--spacing-sm);
 }
 
 .progress-text {
-  font-size: 26rpx;
-  color: #666;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
 }
 
 .progress-percent {
-  font-size: 26rpx;
-  font-weight: bold;
-  color: #07c160;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--accent-color);
 }
 
 .task-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 20rpx;
-  margin-bottom: 25rpx;
-  padding-bottom: 25rpx;
-  border-bottom: 1rpx solid #f0f0f0;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1rpx solid var(--bg-tertiary);
 }
 
 .meta-item {
   display: flex;
   align-items: center;
-  font-size: 24rpx;
-  color: #999;
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
 }
 
 .meta-item van-icon {
@@ -111,22 +111,22 @@
 }
 
 .meta-text {
-  font-size: 24rpx;
+  font-size: var(--font-size-sm);
 }
 
 .score-section {
-  margin-bottom: 25rpx;
+  margin-bottom: var(--spacing-lg);
 }
 
 .score-text {
-  font-size: 28rpx;
-  font-weight: bold;
-  color: #ff6b35;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--warning-color);
 }
 
 .action-buttons {
   display: flex;
-  gap: 20rpx;
+  gap: var(--spacing-md);
 }
 
 .action-buttons van-button {
@@ -139,12 +139,12 @@
 
 .floating-action {
   position: fixed;
-  bottom: 40rpx;
+  bottom: var(--spacing-xl);
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
 }
 
 .floating-action van-button {
-  box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.15);
+  box-shadow: var(--shadow-lg);
 }
