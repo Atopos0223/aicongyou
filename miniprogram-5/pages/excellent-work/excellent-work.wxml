@@ -1,9 +1,82 @@
-<view class="page-container">
-  <view class="page-content">
-    <view class="page-title">优秀作业界面</view>
-    <view class="back-button-wrapper">
-      <van-button type="primary" bind:click="goBack">返回</van-button>
+<view class="excellent-page">
+  <view class="page-header">
+    <view class="back-button" bindtap="goBack">
+      <van-icon name="arrow-left" size="40rpx" color="#323233" />
+    </view>
+    <view class="header-content">
+      <text class="header-title">优秀作业精选</text>
+      <text class="header-subtitle">{{taskName || '正在加载...'}}</text>
+    </view>
+    <view class="header-meta">
+      <van-tag type="primary" size="medium">{{courseTitle || '所属课程'}}</van-tag>
     </view>
   </view>
+
+  <block wx:if="{{loading}}">
+    <view class="state-card">
+      <van-loading color="#1989fa" size="32px" />
+      <text class="state-text">优秀作业加载中...</text>
+    </view>
+  </block>
+
+  <block wx:elif="{{error}}">
+    <view class="state-card error">
+      <text class="state-text">{{error}}</text>
+      <view class="retry-button" bindtap="reload">重新加载</view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <block wx:if="{{works.length}}">
+      <scroll-view scroll-y class="work-list">
+        <view class="work-card" wx:for="{{works}}" wx:key="id">
+          <view class="score-chip" wx:if="{{item.score}}">
+            <text>{{item.score}} 分</text>
+          </view>
+          <view class="work-body">
+            <view class="work-title-row">
+              <text class="work-title">{{item.workTitle}}</text>
+              <van-tag plain type="primary">{{item.displayOwner}}</van-tag>
+            </view>
+            <text class="work-desc">{{item.summary}}</text>
+            <view class="comment-box">
+              <view class="comment-header">
+                <van-icon name="comment" size="32rpx" color="#ffb300" />
+                <text class="comment-title">教师评语</text>
+              </view>
+              <text class="comment-content">{{item.teacherComment}}</text>
+            </view>
+          </view>
+
+          <view class="work-footer">
+            <view class="footer-left">
+              <van-icon name="underway-o" size="28rpx" color="#1989fa" />
+              <text class="footer-time">{{item.createdAt}}</text>
+            </view>
+            <view class="footer-right">
+              <view class="icon-button" bindtap="toggleLike" data-id="{{item.id}}">
+                <van-icon name="{{item.liked ? 'like' : 'like-o'}}" size="32rpx" color="{{item.liked ? '#ee0a24' : '#969799'}}" />
+                <text>{{item.liked ? '已点赞' : '点赞'}}</text>
+              </view>
+              <view class="icon-button" bindtap="toggleFavorite" data-id="{{item.id}}">
+                <van-icon name="{{item.favorited ? 'star' : 'star-o'}}" size="32rpx" color="{{item.favorited ? '#ffd21e' : '#969799'}}" />
+                <text>{{item.favorited ? '已收藏' : '收藏'}}</text>
+              </view>
+              <view class="icon-button" bindtap="openAttachment" data-url="{{item.attachmentUrl}}">
+                <van-icon name="description" size="32rpx" color="#1989fa" />
+                <text>附件</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </block>
+    <block wx:else>
+      <view class="state-card">
+        <van-empty description="暂未收录该任务的优秀作业" />
+        <view class="state-text">敬请期待下一批优秀作品</view>
+      </view>
+    </block>
+  </block>
 </view>
 

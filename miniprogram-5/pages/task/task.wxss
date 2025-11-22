@@ -1,7 +1,7 @@
 .task-page {
   min-height: 100vh;
-  padding: 32rpx;
-  background: #f7f8fa;
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, #87ceeb 0%, #ffffff 100%);
 }
 
 /* 页面标题区域 */
@@ -9,7 +9,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32rpx;
+  margin-bottom: var(--spacing-lg);
 }
 
 .header-left {
@@ -33,85 +33,85 @@
 }
 
 .header-title {
-  font-size: 36rpx;
-  font-weight: 600;
-  color: #323233;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
 }
 
 .header-right {
   display: flex;
   align-items: center;
-  gap: 8rpx;
+  gap: var(--spacing-xs);
 }
 
 .header-score {
-  font-size: 32rpx;
-  font-weight: 600;
-  color: #ff976a;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--warning-color);
 }
 
 /* 标签切换 */
 .tab-switch {
   display: flex;
-  margin-bottom: 24rpx;
-  background: #f0f2f5;
-  border-radius: 999rpx;
-  padding: 8rpx;
+  margin-bottom: var(--spacing-md);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-xs);
 }
 
 .tab-item {
   flex: 1;
   text-align: center;
-  padding: 16rpx 0;
-  border-radius: 999rpx;
-  font-size: 28rpx;
-  color: #646566;
+  padding: var(--spacing-sm) 0;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
 }
 
 .tab-item.active {
-  background: #ffffff;
-  color: #1989fa;
-  font-weight: 600;
-  box-shadow: 0 2rpx 8rpx rgba(25, 137, 250, 0.2);
+  background: var(--bg-primary);
+  color: var(--primary-color);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--shadow-sm);
 }
 
 /* 任务卡片列表 */
 .task-list {
   display: flex;
   flex-direction: column;
-  gap: 24rpx;
+  gap: var(--spacing-md);
 }
 
 .task-card {
-  background: #ffffff;
-  border-radius: 24rpx;
-  padding: 32rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 /* 任务标题区域 */
 .task-header {
-  margin-bottom: 16rpx;
+  margin-bottom: var(--spacing-sm);
 }
 
 .task-title-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16rpx;
+  gap: var(--spacing-sm);
 }
 
 .task-title {
-  font-size: 40rpx;
-  font-weight: 600;
-  color: #323233;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
   flex: 1;
 }
 
 .task-course {
-  font-size: 26rpx;
-  color: #969799;
-  margin-top: 8rpx;
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
+  margin-top: var(--spacing-xs);
 }
 
 .task-tag {
@@ -120,27 +120,27 @@
 
 /* 任务描述 */
 .task-desc {
-  font-size: 28rpx;
-  color: #646566;
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
   line-height: 1.6;
-  margin-bottom: 32rpx;
+  margin-bottom: var(--spacing-lg);
 }
 
 /* 指标网格 */
 .metrics-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16rpx;
-  margin-bottom: 32rpx;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
 }
 
 .metric-item {
-  background: #f7f8fa;
-  border-radius: 16rpx;
-  padding: 20rpx;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
   display: flex;
   align-items: center;
-  gap: 12rpx;
+  gap: var(--spacing-sm);
 }
 
 .metric-icon-wrapper {
@@ -162,41 +162,41 @@
 }
 
 .metric-label {
-  font-size: 24rpx;
-  color: #969799;
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
 }
 
 .metric-value {
-  font-size: 28rpx;
-  font-weight: 600;
-  color: #323233;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
 }
 
 .metric-value.green {
-  color: #07c160;
+  color: var(--accent-color);
 }
 
 .metric-value.orange {
-  color: #ff976a;
+  color: var(--warning-color);
 }
 
 /* 底部按钮 */
 .task-footer {
   display: flex;
-  gap: 16rpx;
+  gap: var(--spacing-sm);
 }
 
 .footer-button {
   flex: 1;
   height: 88rpx;
-  border-radius: 16rpx;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8rpx;
-  font-size: 28rpx;
-  font-weight: 500;
-  color: #ffffff;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-white);
   transition: opacity 0.3s;
 }
 
@@ -205,18 +205,18 @@
 }
 
 .gray-button {
-  background: #646566;
+  background: var(--text-secondary);
 }
 
 .gradient-button {
-  background: linear-gradient(90deg, #1989fa 0%, #7232dd 100%);
-  box-shadow: 0 4rpx 12rpx rgba(25, 137, 250, 0.3);
+  background: var(--primary-gradient);
+  box-shadow: var(--shadow-primary);
 }
 
 .footer-button text {
-  color: #ffffff;
-  font-size: 28rpx;
-  font-weight: 500;
+  color: var(--text-white);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
 }
 
 .footer-meta {
@@ -229,34 +229,34 @@
 .team-summary-card {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16rpx;
-  padding: 24rpx;
-  background: linear-gradient(90deg, #1989fa 0%, #7232dd 100%);
-  border-radius: 24rpx;
-  margin-bottom: 24rpx;
-  color: #ffffff;
-  box-shadow: 0 6rpx 20rpx rgba(25, 137, 250, 0.2);
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--primary-gradient);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--spacing-md);
+  color: var(--text-white);
+  box-shadow: var(--shadow-primary);
 }
 
 .submission-full-button {
-  margin-top: 20rpx;
+  margin-top: var(--spacing-md);
   width: 100%;
   height: 96rpx;
-  border-radius: 20rpx;
-  background: linear-gradient(90deg, #1989fa 0%, #7232dd 100%);
-  color: #ffffff;
+  border-radius: var(--radius-lg);
+  background: var(--primary-gradient);
+  color: var(--text-white);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10rpx;
-  font-size: 30rpx;
-  font-weight: 600;
-  box-shadow: 0 8rpx 20rpx rgba(25, 137, 250, 0.25);
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--shadow-primary);
 }
 
 .submission-full-button text {
-  color: #ffffff;
-  font-size: 30rpx;
+  color: var(--text-white);
+  font-size: var(--font-size-lg);
 }
 
 .summary-item {
@@ -266,52 +266,52 @@
 }
 
 .summary-label {
-  font-size: 24rpx;
+  font-size: var(--font-size-sm);
   opacity: 0.8;
 }
 
 .summary-value {
-  font-size: 32rpx;
-  font-weight: 600;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
 }
 
 .team-state {
-  background: #ffffff;
-  border-radius: 24rpx;
-  padding: 40rpx 24rpx;
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl) var(--spacing-md);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+  gap: var(--spacing-sm);
+  box-shadow: var(--shadow-sm);
 }
 
 .team-state.error {
-  border: 1rpx solid #ee0a24;
+  border: 1rpx solid var(--danger-color);
 }
 
 .state-text {
-  font-size: 28rpx;
-  color: #646566;
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
 }
 
 .retry-button {
-  margin-top: 8rpx;
-  padding: 16rpx 48rpx;
-  border-radius: 999rpx;
-  background: linear-gradient(90deg, #ff976a 0%, #ff5722 100%);
-  color: #ffffff;
-  font-size: 26rpx;
+  margin-top: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-xl);
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--warning-color) 0%, #ff5722 100%);
+  color: var(--text-white);
+  font-size: var(--font-size-sm);
 }
 
 .team-card .team-metrics {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16rpx;
-  padding: 24rpx;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
   background: #f5f7ff;
-  border-radius: 16rpx;
-  margin-bottom: 16rpx;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-sm);
 }
 
 .team-metric-item {
@@ -321,17 +321,17 @@
 }
 
 .team-metric-label {
-  font-size: 24rpx;
-  color: #646566;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
 }
 
 .team-metric-value {
-  font-size: 32rpx;
-  font-weight: 600;
-  color: #323233;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
 }
 
 .team-metric-value.highlight {
-  color: #1989fa;
+  color: var(--primary-color);
 }
 
