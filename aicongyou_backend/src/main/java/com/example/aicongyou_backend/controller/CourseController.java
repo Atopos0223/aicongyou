@@ -1,39 +1,36 @@
 package com.example.aicongyou_backend.controller;
 
+import com.example.aicongyou_backend.dto.ApiResponse;
 import com.example.aicongyou_backend.entity.Course;
 import com.example.aicongyou_backend.service.CourseService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/course")
+@CrossOrigin(origins = "*")
 public class CourseController {
-    @Autowired
-    private CourseService courseService;
+
+    private final CourseService courseService;
+
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @GetMapping("/list")
-    public Map<String, Object> getCourseList(
-            @RequestParam(required = false) Integer userId,
-            @RequestParam(required = false) String term,
-            @RequestParam(required = false) String keyword) {
-        Map<String, Object> result = new HashMap<>();
-        try {
-            List<Course> courses = courseService.getCourses(userId, term, keyword);
-            result.put("code", 200);
-            result.put("message", "success");
-            result.put("data", courses);
-        } catch (Exception e) {
-            result.put("code", 500);
-            result.put("message", e.getMessage());
-            result.put("data", null);
-        }
-        return result;
+    public ApiResponse<List<Course>> listCourses(
+            @RequestParam(value = "userId", required = false) Long userId,
+            @RequestParam(value = "term", required = false) String term,
+            @RequestParam(value = "keyword", required = false) String keyword
+    ) {
+        Long resolvedUserId = userId != null ? userId : 1L;
+        List<Course> courses = courseService.listCourses(resolvedUserId, term, keyword);
+        return ApiResponse.success(courses);
     }
 }
-
 
