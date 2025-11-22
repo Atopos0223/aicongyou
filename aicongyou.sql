@@ -1,34 +1,21 @@
 /*
- Navicat Premium Dump SQL (merged)
+ Navicat Premium Dump SQL
 
  Source Server         : WebFinal
  Source Server Type    : MySQL
- Source Server Version : 8.0.39
+ Source Server Version : 80039 (8.0.39)
  Source Host           : localhost:3306
  Source Schema         : aicongyou
 
  Target Server Type    : MySQL
- Target Server Version : 8.0.39
+ Target Server Version : 80039 (8.0.39)
  File Encoding         : 65001
 
- Date: 19/11/2025 21:30:00
+ Date: 22/11/2025 16:52:33
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for test
--- ----------------------------
-DROP TABLE IF EXISTS `test`;
-CREATE TABLE `test`  (
-  `text` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of test
--- ----------------------------
-INSERT INTO `test` VALUES ('testwords');
 
 -- ----------------------------
 -- Table structure for course
@@ -43,19 +30,53 @@ CREATE TABLE `course`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_term`(`term`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  INDEX `idx_term`(`term` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES (1, '物联网设计基础', '2024年秋季', '通过动手实践学习物联网核心技术', '#1989fa', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `course` VALUES (2, 'AI应用开发', '2024年秋季', '深入了解AI模型在实际项目中的应用', '#7232dd', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `course` VALUES (3, 'Web前端开发', '2024年春季', '学习现代Web前端开发技术', '#07c160', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `course` VALUES (4, '大数据分析基础', '2025年春季', '学习大数据处理与分析的基础方法与工具', '#ff976a', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `course` VALUES (5, '智能硬件创新实践', '2025年秋季', '围绕智能硬件完成从创意到原型的项目实践', '#ee0a24', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `course` VALUES (6, 'Python程序设计', '2023年春季', '掌握Python语言基础与常用库的应用', '#ffd01e', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `course` VALUES (7, '计算机网络原理', '2023年秋季', '系统学习计算机网络体系结构与核心协议', '#00c6ff', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
+INSERT INTO `course` VALUES (1, '物联网设计基础', '2024年秋季', '通过动手实践学习物联网核心技术，包括传感器应用、数据采集、通信协议等', '#1989fa', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
+INSERT INTO `course` VALUES (2, 'AI应用开发', '2024年秋季', '深入了解AI模型在实际项目中的应用，包括模型训练、部署和优化', '#7232dd', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
+INSERT INTO `course` VALUES (3, 'Web前端开发', '2024年春季', '学习现代Web前端开发技术，包括HTML、CSS、JavaScript和主流框架', '#07c160', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
+INSERT INTO `course` VALUES (4, '大数据分析基础', '2025年春季', '学习大数据处理与分析的基础方法与工具，包括数据清洗、分析和可视化', '#ff976a', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
+INSERT INTO `course` VALUES (5, '智能硬件创新实践', '2025年秋季', '围绕智能硬件完成从创意到原型的项目实践，培养创新思维', '#ee0a24', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
+INSERT INTO `course` VALUES (6, 'Python程序设计', '2023年春季', '掌握Python语言基础与常用库的应用，包括数据处理、Web开发等', '#ffd01e', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
+INSERT INTO `course` VALUES (7, '计算机网络原理', '2023年秋季', '系统学习计算机网络体系结构与核心协议，理解网络通信机制', '#00c6ff', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
+
+-- ----------------------------
+-- Table structure for excellent_work
+-- ----------------------------
+DROP TABLE IF EXISTS `excellent_work`;
+CREATE TABLE `excellent_work`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `task_id` int NOT NULL COMMENT '关联任务ID',
+  `course_id` int NOT NULL COMMENT '关联课程ID',
+  `work_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '作品标题',
+  `student_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '提交学生',
+  `team_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '团队名称',
+  `score` decimal(5, 2) NULL DEFAULT NULL COMMENT '教师评分',
+  `summary` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '作品摘要',
+  `teacher_comment` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '教师评语',
+  `preview_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '预览封面图',
+  `attachment_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '附件链接',
+  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_excellent_work_task`(`task_id` ASC) USING BTREE,
+  INDEX `idx_excellent_work_course`(`course_id` ASC) USING BTREE,
+  CONSTRAINT `fk_excellent_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `fk_excellent_task` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of excellent_work
+-- ----------------------------
+INSERT INTO `excellent_work` VALUES (1, 2, 1, '智能数据处理系统', '李浩', '核心研发组', 96.50, '利用多传感器融合实现数据的智能处理和分析，并完成可视化展示。', '逻辑清晰、数据扎实，代码结构优良，值得全班同学学习。', NULL, '/uploads/team-submissions/data-process.docx', '2025-11-21 18:26:42', '2025-11-21 21:27:18');
+INSERT INTO `excellent_work` VALUES (2, 5, 2, 'AI模型可解释性可视化', '王凯', NULL, 95.80, '为分类模型构建可解释性面板，直观展示特征贡献。', '创新性强，界面体验好，代码规范。', NULL, '/uploads/team-submissions/explainable-ai.pdf', '2025-11-21 18:26:42', '2025-11-21 18:26:42');
+INSERT INTO `excellent_work` VALUES (3, 7, 3, '响应式电商网站设计', '张伟', NULL, 92.80, '使用现代前端技术栈构建了完整的响应式电商网站，支持多设备适配。', 'UI设计美观，交互流畅，代码结构清晰。', NULL, '/uploads/team-submissions/ecommerce-site.zip', '2025-11-22 14:30:45', '2025-11-22 14:30:45');
+INSERT INTO `excellent_work` VALUES (4, 11, 4, '大数据分析可视化平台', '陈明', '数据智能组', 93.20, '构建了完整的大数据分析可视化平台，支持多种数据源和图表类型。', '架构设计合理，可视化效果出色，交互体验好。', NULL, '/uploads/team-submissions/data-viz.zip', '2025-11-22 10:15:30', '2025-11-22 10:15:30');
+INSERT INTO `excellent_work` VALUES (5, 14, 5, '智能硬件原型', '刘芳', NULL, 94.50, '完成了智能硬件的完整原型设计，包括硬件电路和软件控制。', '设计合理，实现完整，文档详细。', NULL, '/uploads/team-submissions/hardware-prototype.zip', '2025-11-22 11:20:15', '2025-11-22 11:20:15');
 
 -- ----------------------------
 -- Table structure for task
@@ -75,208 +96,40 @@ CREATE TABLE `task`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_course_id`(`course_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  INDEX `idx_course_id`(`course_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of task
 -- ----------------------------
--- 课程1（物联网设计基础）的任务 - 共12个任务
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (1, 1, '数据处理与分析', '对采集的数据进行处理和分析', '个人任务', '2024-12-22', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (2, 1, '系统设计与实现', '完成系统的整体设计和核心功能实现', '个人任务', '2024-12-25', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (3, 1, '项目文档编写', '编写完整的项目开发文档和使用说明', '个人任务', '2024-12-20', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (4, 1, '传感器数据采集', '学习并实现传感器数据的采集', '个人任务', '2024-12-18', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (5, 1, '通信协议实现', '实现物联网设备间的通信协议', '个人任务', '2024-12-23', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (6, 1, '数据存储设计', '设计并实现数据存储方案', '个人任务', '2024-12-24', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (7, 1, '设备管理模块', '开发设备管理功能模块', '个人任务', '2024-12-26', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (8, 1, '用户界面设计', '设计友好的用户交互界面', '个人任务', '2024-12-27', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (9, 1, '系统测试', '进行系统功能测试', '个人任务', '2024-12-28', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (10, 1, '性能优化', '优化系统性能', '个人任务', '2024-12-29', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (11, 1, '安全防护', '实现系统安全防护机制', '个人任务', '2024-12-30', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (12, 1, '项目总结', '完成项目总结报告', '个人任务', '2024-12-31', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-
--- 课程2（AI应用开发）的任务 - 共15个任务
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (13, 2, 'AI模型训练', '训练和优化AI模型', '个人任务', '2024-12-28', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (14, 2, '模型部署', '将训练好的模型部署到生产环境', '个人任务', '2024-12-30', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (15, 2, '数据预处理', '对训练数据进行预处理', '个人任务', '2024-12-15', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (16, 2, '特征工程', '进行特征提取和特征工程', '个人任务', '2024-12-18', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (17, 2, '模型选择', '选择合适的AI模型架构', '个人任务', '2024-12-20', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (18, 2, '超参数调优', '调整模型超参数', '个人任务', '2024-12-22', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (19, 2, '模型评估', '评估模型性能指标', '个人任务', '2024-12-24', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (20, 2, 'API接口开发', '开发模型调用API接口', '个人任务', '2024-12-26', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (21, 2, '前端集成', '将AI功能集成到前端应用', '个人任务', '2024-12-27', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (22, 2, '性能监控', '实现模型性能监控', '个人任务', '2024-12-29', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (23, 2, '模型版本管理', '实现模型版本管理功能', '个人任务', '2024-12-31', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (24, 2, '用户反馈收集', '收集用户使用反馈', '个人任务', '2025-01-02', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (25, 2, '模型迭代优化', '基于反馈优化模型', '个人任务', '2025-01-05', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (26, 2, '文档编写', '编写AI应用开发文档', '个人任务', '2025-01-08', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (27, 2, '项目演示', '准备项目演示', '个人任务', '2025-01-10', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-
--- 课程3（Web前端开发）的任务 - 共10个任务
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (28, 3, 'HTML基础', '学习HTML基础语法', '个人任务', '2024-11-15', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (29, 3, 'CSS样式设计', '学习CSS样式设计', '个人任务', '2024-11-20', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (30, 3, 'JavaScript基础', '学习JavaScript编程基础', '个人任务', '2024-11-25', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (31, 3, '响应式布局', '实现响应式网页布局', '个人任务', '2024-11-30', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (32, 3, '前端框架学习', '学习Vue或React框架', '个人任务', '2024-12-05', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (33, 3, '组件开发', '开发可复用组件', '个人任务', '2024-12-10', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (34, 3, '状态管理', '学习前端状态管理', '个人任务', '2024-12-15', '2025-11-17 21:04:40', '2025-11-17 21:04:40');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (35, 3, '路由配置', '团队任务', '团队路由与权限调度设计', '2024-12-20', '2025-11-17 21:04:40', '2025-11-17 21:05:44');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (36, 3, 'API对接', '团队任务', '对接后端API接口', '2024-12-25', '2025-11-17 21:04:40', '2025-11-17 21:05:44');
-INSERT INTO `task` (`id`, `course_id`, `name`, `description`, `type`, `deadline`, `create_time`, `update_time`) VALUES (37, 3, '项目实战', '团队任务', '完成前端项目实战', '2024-12-30', '2025-11-17 21:04:40', '2025-11-17 21:05:44');
-
--- 任务扩展指标：为每个任务给出热度指数和提交总人数
-UPDATE task
-SET
-    heat_index = CASE id
-        WHEN 1 THEN 96
-        WHEN 2 THEN 93
-        WHEN 3 THEN 89
-        WHEN 4 THEN 85
-        WHEN 5 THEN 82
-        WHEN 6 THEN 80
-        WHEN 7 THEN 78
-        WHEN 8 THEN 77
-        WHEN 9 THEN 75
-        WHEN 10 THEN 72
-        WHEN 11 THEN 70
-        WHEN 12 THEN 68
-        WHEN 13 THEN 98
-        WHEN 14 THEN 97
-        WHEN 15 THEN 95
-        WHEN 16 THEN 94
-        WHEN 17 THEN 92
-        WHEN 18 THEN 91
-        WHEN 19 THEN 90
-        WHEN 20 THEN 89
-        WHEN 21 THEN 88
-        WHEN 22 THEN 86
-        WHEN 23 THEN 85
-        WHEN 24 THEN 84
-        WHEN 25 THEN 83
-        WHEN 26 THEN 82
-        WHEN 27 THEN 81
-        WHEN 28 THEN 87
-        WHEN 29 THEN 86
-        WHEN 30 THEN 85
-        WHEN 31 THEN 83
-        WHEN 32 THEN 82
-        WHEN 33 THEN 80
-        WHEN 34 THEN 79
-        WHEN 35 THEN 78
-        WHEN 36 THEN 76
-        WHEN 37 THEN 75
-        ELSE heat_index
-    END,
-    submit_total = CASE id
-        WHEN 1 THEN 32
-        WHEN 2 THEN 32
-        WHEN 3 THEN 28
-        WHEN 4 THEN 30
-        WHEN 5 THEN 31
-        WHEN 6 THEN 29
-        WHEN 7 THEN 27
-        WHEN 8 THEN 28
-        WHEN 9 THEN 30
-        WHEN 10 THEN 26
-        WHEN 11 THEN 25
-        WHEN 12 THEN 24
-        WHEN 13 THEN 34
-        WHEN 14 THEN 34
-        WHEN 15 THEN 33
-        WHEN 16 THEN 33
-        WHEN 17 THEN 32
-        WHEN 18 THEN 31
-        WHEN 19 THEN 31
-        WHEN 20 THEN 30
-        WHEN 21 THEN 30
-        WHEN 22 THEN 29
-        WHEN 23 THEN 29
-        WHEN 24 THEN 28
-        WHEN 25 THEN 28
-        WHEN 26 THEN 27
-        WHEN 27 THEN 27
-        WHEN 28 THEN 26
-        WHEN 29 THEN 26
-        WHEN 30 THEN 25
-        WHEN 31 THEN 25
-        WHEN 32 THEN 24
-        WHEN 33 THEN 24
-        WHEN 34 THEN 23
-        WHEN 35 THEN 23
-        WHEN 36 THEN 22
-        WHEN 37 THEN 22
-        ELSE submit_total
-    END,
-    submitted_students = CASE id
-        WHEN 1 THEN 26
-        WHEN 2 THEN 25
-        WHEN 3 THEN 18
-        WHEN 4 THEN 21
-        WHEN 5 THEN 20
-        WHEN 6 THEN 17
-        WHEN 7 THEN 15
-        WHEN 8 THEN 14
-        WHEN 9 THEN 19
-        WHEN 10 THEN 12
-        WHEN 11 THEN 11
-        WHEN 12 THEN 10
-        WHEN 13 THEN 30
-        WHEN 14 THEN 29
-        WHEN 15 THEN 28
-        WHEN 16 THEN 26
-        WHEN 17 THEN 24
-        WHEN 18 THEN 23
-        WHEN 19 THEN 22
-        WHEN 20 THEN 21
-        WHEN 21 THEN 20
-        WHEN 22 THEN 18
-        WHEN 23 THEN 17
-        WHEN 24 THEN 16
-        WHEN 25 THEN 15
-        WHEN 26 THEN 14
-        WHEN 27 THEN 13
-        WHEN 28 THEN 12
-        WHEN 29 THEN 12
-        WHEN 30 THEN 11
-        WHEN 31 THEN 11
-        WHEN 32 THEN 10
-        WHEN 33 THEN 9
-        WHEN 34 THEN 9
-        WHEN 35 THEN 8
-        WHEN 36 THEN 8
-        WHEN 37 THEN 7
-        ELSE submitted_students
-    END;
-
--- ----------------------------
--- Table structure for team_task_board
--- ----------------------------
-DROP TABLE IF EXISTS `team_task_board`;
-CREATE TABLE `team_task_board`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `task_id` int NOT NULL COMMENT '关联的任务ID',
-  `team_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '团队名称',
-  `team_score` decimal(6, 2) NOT NULL DEFAULT 0.00 COMMENT '团队得分',
-  `team_rank` int NOT NULL COMMENT '团队排名（越小越靠前）',
-  `individual_contribution` decimal(5, 2) NOT NULL DEFAULT 0.00 COMMENT '当前用户贡献度百分比',
-  `submitted_members` int NULL DEFAULT 0 COMMENT '已提交成员数',
-  `total_members` int NULL DEFAULT 0 COMMENT '团队总成员数',
-  `popularity_index` int NULL DEFAULT 0 COMMENT '热度指数',
-  `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `uk_task_id`(`task_id`) USING BTREE,
-  CONSTRAINT `fk_team_task_board_task` FOREIGN KEY (`task_id`) REFERENCES `task`(`id`) ON DELETE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of team_task_board
--- ----------------------------
-INSERT INTO `team_task_board` VALUES (1, 1, '核心研发组', 96.50, 1, 88.00, 5, 6, 82, NOW());
-INSERT INTO `team_task_board` VALUES (2, 2, '系统工程组', 92.30, 2, 84.50, 5, 6, 77, NOW());
-INSERT INTO `team_task_board` VALUES (3, 3, '交互体验组', 90.10, 3, 81.20, 4, 6, 73, NOW());
-INSERT INTO `team_task_board` VALUES (4, 4, '数据智能组', 88.40, 4, 79.50, 4, 6, 69, NOW());
-INSERT INTO `team_task_board` VALUES (5, 5, '通信协议组', 87.60, 5, 78.10, 3, 6, 71, NOW());
-INSERT INTO `team_task_board` VALUES (6, 6, '基础平台组', 85.20, 6, 75.80, 3, 6, 65, NOW());
+-- 课程1（物联网设计基础）- 3个任务
+INSERT INTO `task` VALUES (1, 1, '传感器数据采集', '学习并实现传感器数据的采集', '个人任务', '2024-12-18', 85, 30, 22, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+INSERT INTO `task` VALUES (2, 1, '数据处理与分析', '对采集的数据进行处理和分析', '个人任务', '2024-12-22', 88, 30, 24, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+INSERT INTO `task` VALUES (3, 1, '系统设计与实现', '完成系统的整体设计和核心功能实现', '团队任务', '2024-12-25', 90, 30, 20, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+-- 课程2（AI应用开发）- 3个任务
+INSERT INTO `task` VALUES (4, 2, '数据预处理', '对训练数据进行预处理', '个人任务', '2024-12-15', 92, 28, 25, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+INSERT INTO `task` VALUES (5, 2, 'AI模型训练', '训练和优化AI模型', '个人任务', '2024-12-28', 95, 28, 23, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+INSERT INTO `task` VALUES (6, 2, '模型部署', '将训练好的模型部署到生产环境', '团队任务', '2024-12-30', 93, 28, 21, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+-- 课程3（Web前端开发）- 3个任务
+INSERT INTO `task` VALUES (7, 3, 'HTML与CSS基础', '学习HTML和CSS基础语法', '个人任务', '2024-11-20', 85, 26, 20, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+INSERT INTO `task` VALUES (8, 3, 'JavaScript编程', '学习JavaScript编程基础', '个人任务', '2024-11-25', 83, 26, 18, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+INSERT INTO `task` VALUES (9, 3, '前端项目实战', '完成前端项目实战', '团队任务', '2024-12-30', 80, 26, 15, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+-- 课程4（大数据分析基础）- 3个任务
+INSERT INTO `task` VALUES (10, 4, '数据清洗', '学习并实现数据清洗技术', '个人任务', '2025-03-15', 88, 25, 20, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+INSERT INTO `task` VALUES (11, 4, '数据分析', '进行数据分析和挖掘', '个人任务', '2025-03-25', 86, 25, 18, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+INSERT INTO `task` VALUES (12, 4, '数据可视化', '实现数据可视化展示', '团队任务', '2025-04-05', 84, 25, 16, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+-- 课程5（智能硬件创新实践）- 3个任务
+INSERT INTO `task` VALUES (13, 5, '硬件原型设计', '完成智能硬件原型设计', '个人任务', '2025-10-15', 90, 24, 19, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+INSERT INTO `task` VALUES (14, 5, '硬件开发', '实现硬件核心功能', '个人任务', '2025-10-30', 88, 24, 17, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+INSERT INTO `task` VALUES (15, 5, '项目展示', '完成项目展示和演示', '团队任务', '2025-11-15', 85, 24, 15, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+-- 课程6（Python程序设计）- 3个任务
+INSERT INTO `task` VALUES (16, 6, 'Python基础语法', '掌握Python基础语法和数据类型', '个人任务', '2023-04-10', 82, 22, 18, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+INSERT INTO `task` VALUES (17, 6, 'Python库应用', '学习常用Python库的使用', '个人任务', '2023-04-25', 80, 22, 16, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+INSERT INTO `task` VALUES (18, 6, 'Python项目实践', '完成Python综合项目', '团队任务', '2023-05-10', 78, 22, 14, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+-- 课程7（计算机网络原理）- 3个任务
+INSERT INTO `task` VALUES (19, 7, '网络协议分析', '分析常见网络协议的工作原理', '个人任务', '2023-10-15', 85, 20, 16, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+INSERT INTO `task` VALUES (20, 7, '网络编程实践', '实现网络通信程序', '个人任务', '2023-10-30', 83, 20, 14, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
+INSERT INTO `task` VALUES (21, 7, '网络系统设计', '设计并实现网络系统', '团队任务', '2023-11-15', 81, 20, 12, 100.00, '2025-11-17 21:04:40', '2025-11-21 18:26:41');
 
 -- ----------------------------
 -- Table structure for task_submisson
@@ -294,55 +147,61 @@ CREATE TABLE `task_submisson`  (
   `file_size` bigint NULL DEFAULT 0 COMMENT '文件大小（字节）',
   `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '提交时间',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_task_submisson_task`(`task_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  INDEX `idx_task_submisson_task`(`task_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of task_submisson
 -- ----------------------------
-INSERT INTO `task_submisson` VALUES (1, 35, '团队任务', '团队01', '团队成员', '111', '/uploads/team-submissions/80b89bf9-13fc-44d8-9981-722908ea60b9.docx', 'QU2BZZMe8Com3068d97c66689a077c5f823b5718449f.docx', 94665, '2025-11-19 19:53:57');
-INSERT INTO `task_submisson` VALUES (2, 35, '团队任务', '团队01', '团队成员', '222', '/uploads/team-submissions/0e902f2d-72be-4f6f-8d82-4b4a1db44d9a.docx', 'H0xgDcioqVSGe4a22a6b047614d96ba85deba2c1ee09.docx', 26014, '2025-11-19 20:12:00');
-INSERT INTO `task_submisson` VALUES (3, 37, '团队任务', '团队03', '团队成员', '333', '/uploads/team-submissions/7b81a449-1f9e-4b11-ab47-70e250e8a54d.docx', 'yapZTf0vFHE84d91a15339a1708c2defbc907e3e9aac.docx', 155574, '2025-11-19 20:12:16');
-INSERT INTO `task_submisson` VALUES (4, 36, '团队任务', '团队02', '团队成员', '123', '/uploads/team-submissions/5af34318-4710-49b1-91bb-655a521e31cf.docx', '8qg9ZAhFlJO9a3f46d66dfb50c99134cf31e1fd2bef6.docx', 80749, '2025-11-19 20:15:52');
-INSERT INTO `task_submisson` VALUES (5, 28, '个人任务', '', '团队成员', '111', '/uploads/team-submissions/b67deb90-8d97-4580-9c5c-a7601b209a2a.docx', 'oElxr7Mbo85e4d91a15339a1708c2defbc907e3e9aac.docx', 155574, '2025-11-19 20:40:50');
-INSERT INTO `task_submisson` VALUES (6, 9, '个人任务', '', '团队成员', '34', '/uploads/team-submissions/2b487784-d882-46bb-ac3f-ff87057766c0.docx', 'Gyz4TTmEwrHdb41b47fb8f8497dbfad8ecb73fc2dcb9.docx', 24910, '2025-11-21 16:30:21');
-INSERT INTO `task_submisson` VALUES (7, 29, '个人任务', '', '团队成员', '345', '/uploads/team-submissions/5da4538e-8a79-43a7-87f6-820497d764b7.docx', 'mAmRysxYr1uua3f46d66dfb50c99134cf31e1fd2bef6.docx', 80749, '2025-11-21 16:35:30');
-INSERT INTO `task_submisson` VALUES (8, 30, '个人任务', '', '团队成员', '2323', '/uploads/team-submissions/4fed32a8-dc70-4c56-9ff9-3f1be5343318.docx', 'CgD9e4T8MvWD4d91a15339a1708c2defbc907e3e9aac.docx', 155574, '2025-11-21 16:43:03');
-INSERT INTO `task_submisson` VALUES (9, 32, '个人任务', '', '团队成员', '34343', '/uploads/team-submissions/86341065-5117-40fd-95fa-96e9c4902104.docx', 'caXHupIewZJ84d91a15339a1708c2defbc907e3e9aac.docx', 155574, '2025-11-21 16:43:33');
-INSERT INTO `task_submisson` VALUES (10, 36, '团队任务', '团队02', '团队成员', '34343', '/uploads/team-submissions/e38a2cca-94f0-4813-ab42-a18ddeda9109.doc', 'nn4FqWCDKHdza41cba0826fc3e11b885a8c10dc3ae6b.doc', 342067, '2025-11-21 16:49:48');
+INSERT INTO `task_submisson` VALUES (1, 1, '个人任务', NULL, '张三', '完成了传感器数据采集实验', '/uploads/submissions/sensor-data-001.docx', 'sensor-data-001.docx', 94665, '2025-11-19 19:53:57');
+INSERT INTO `task_submisson` VALUES (2, 2, '个人任务', NULL, '李四', '数据处理与分析报告', '/uploads/submissions/data-analysis-002.docx', 'data-analysis-002.docx', 26014, '2025-11-19 20:12:00');
+INSERT INTO `task_submisson` VALUES (3, 3, '团队任务', '核心研发组', '王五', '系统设计与实现', '/uploads/submissions/system-design-003.docx', 'system-design-003.docx', 155574, '2025-11-19 20:12:16');
+INSERT INTO `task_submisson` VALUES (4, 4, '个人任务', NULL, '赵六', '数据预处理实验', '/uploads/submissions/preprocess-004.py', 'preprocess-004.py', 80749, '2025-11-19 20:15:52');
+INSERT INTO `task_submisson` VALUES (5, 5, '个人任务', NULL, '钱七', 'AI模型训练报告', '/uploads/submissions/model-train-005.pdf', 'model-train-005.pdf', 120000, '2025-11-20 10:30:00');
+INSERT INTO `task_submisson` VALUES (6, 9, '团队任务', '前端团队', '孙八', '前端项目实战', '/uploads/submissions/frontend-project-006.zip', 'frontend-project-006.zip', 342067, '2025-11-21 16:49:48');
 
 -- ----------------------------
--- Table structure for excellent_work
+-- Table structure for team_task_board
 -- ----------------------------
-DROP TABLE IF EXISTS `excellent_work`;
-CREATE TABLE `excellent_work` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `task_id` int NOT NULL COMMENT '关联任务ID',
-  `course_id` int NOT NULL COMMENT '关联课程ID',
-  `work_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '作品标题',
-  `student_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '提交学生',
-  `team_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '团队名称',
-  `score` decimal(5,2) NULL DEFAULT NULL COMMENT '教师评分',
-  `summary` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '作品摘要',
-  `teacher_comment` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '教师评语',
-  `preview_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '预览封面图',
-  `attachment_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '附件链接',
-  `created_at` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+DROP TABLE IF EXISTS `team_task_board`;
+CREATE TABLE `team_task_board`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `task_id` int NOT NULL COMMENT '关联的任务ID',
+  `team_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '团队名称',
+  `team_score` decimal(6, 2) NOT NULL DEFAULT 0.00 COMMENT '团队得分',
+  `team_rank` int NOT NULL COMMENT '团队排名（越小越靠前）',
+  `individual_contribution` decimal(5, 2) NOT NULL DEFAULT 0.00 COMMENT '当前用户贡献度百分比',
+  `submitted_members` int NULL DEFAULT 0 COMMENT '已提交成员数',
+  `total_members` int NULL DEFAULT 0 COMMENT '团队总成员数',
+  `popularity_index` int NULL DEFAULT 0 COMMENT '热度指数',
   `updated_at` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_excellent_work_task`(`task_id`) USING BTREE,
-  INDEX `idx_excellent_work_course`(`course_id`) USING BTREE,
-  CONSTRAINT `fk_excellent_task` FOREIGN KEY (`task_id`) REFERENCES `task`(`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_excellent_course` FOREIGN KEY (`course_id`) REFERENCES `course`(`id`) ON DELETE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  UNIQUE INDEX `uk_task_id`(`task_id` ASC) USING BTREE,
+  CONSTRAINT `fk_team_task_board_task` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
--- Records of excellent_work
+-- Records of team_task_board
 -- ----------------------------
-INSERT INTO `excellent_work` (`id`, `task_id`, `course_id`, `work_title`, `student_name`, `team_name`, `score`, `summary`, `teacher_comment`, `preview_image`, `attachment_url`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '智能温室监控系统', '李浩', '核心研发组', 96.50, '利用多传感器融合实现温室环境的实时调控，并完成AI预测模型。', '逻辑清晰、数据扎实，代码结构优良，值得全班同学学习。', NULL, '/uploads/team-submissions/0e902f2d-72be-4f6f-8d82-4b4a1db44d9a.docx', '2025-11-21 17:34:27', '2025-11-21 17:37:45'),
-(2, 2, 1, '物联网通信协议优化方案', '赵敏', '系统工程组', 94.30, '通过分析协议瓶颈，提出轻量化通信方案并验证延迟降低20%。', '问题分析深入，实验设计扎实，对性能优化有明显效果。', NULL, '/uploads/team-submissions/protocol.zip', '2025-11-21 17:34:27', '2025-11-21 17:34:27'),
-(3, 13, 2, 'AI模型可解释性可视化', '王凯', NULL, 95.80, '为分类模型构建可解释性面板，直观展示特征贡献。', '创新性强，界面体验好，代码规范。', NULL, '/uploads/team-submissions/explainable-ai.pdf', '2025-11-21 17:34:27', '2025-11-21 17:34:27');
+INSERT INTO `team_task_board` VALUES (1, 3, '核心研发组', 96.50, 1, 88.00, 5, 6, 85, '2025-11-21 18:26:41');
+INSERT INTO `team_task_board` VALUES (2, 6, 'AI开发组', 94.20, 1, 86.00, 4, 5, 82, '2025-11-21 18:26:41');
+INSERT INTO `team_task_board` VALUES (3, 9, '前端团队', 89.80, 1, 80.00, 3, 4, 75, '2025-11-21 18:26:41');
+INSERT INTO `team_task_board` VALUES (4, 12, '数据可视化组', 87.60, 1, 78.50, 4, 5, 72, '2025-11-21 18:26:41');
+INSERT INTO `team_task_board` VALUES (5, 15, '智能硬件组', 92.30, 1, 84.50, 4, 5, 80, '2025-11-21 18:26:41');
+INSERT INTO `team_task_board` VALUES (6, 18, 'Python项目组', 88.40, 1, 82.30, 3, 4, 78, '2025-11-21 18:26:41');
+
+-- ----------------------------
+-- Table structure for test
+-- ----------------------------
+DROP TABLE IF EXISTS `test`;
+CREATE TABLE `test`  (
+  `text` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of test
+-- ----------------------------
+INSERT INTO `test` VALUES ('testwords');
 
 -- ----------------------------
 -- Table structure for user_course_progress
@@ -358,16 +217,21 @@ CREATE TABLE `user_course_progress`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `uk_user_course`(`user_id`, `course_id`) USING BTREE,
-  INDEX `idx_course_id`(`course_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  UNIQUE INDEX `uk_user_course`(`user_id` ASC, `course_id` ASC) USING BTREE,
+  INDEX `idx_course_id`(`course_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_course_progress
 -- ----------------------------
-INSERT INTO `user_course_progress` VALUES (1, 1, 1, 8, 12, 66.67, '2025-11-17 21:04:41', '2025-11-17 21:04:41');
-INSERT INTO `user_course_progress` VALUES (2, 1, 2, 6, 15, 40.00, '2025-11-17 21:04:41', '2025-11-17 21:04:41');
-INSERT INTO `user_course_progress` VALUES (3, 1, 3, 0, 10, 0.00, '2025-11-17 21:04:41', '2025-11-17 21:04:41');
+INSERT INTO `user_course_progress` VALUES (1, 1, 1, 2, 3, 66.67, '2025-11-17 21:04:41', '2025-11-17 21:04:41');
+INSERT INTO `user_course_progress` VALUES (2, 1, 2, 2, 3, 66.67, '2025-11-17 21:04:41', '2025-11-17 21:04:41');
+INSERT INTO `user_course_progress` VALUES (3, 1, 3, 1, 3, 33.33, '2025-11-17 21:04:41', '2025-11-17 21:04:41');
+INSERT INTO `user_course_progress` VALUES (4, 2, 1, 3, 3, 100.00, '2025-11-17 21:04:41', '2025-11-17 21:04:41');
+INSERT INTO `user_course_progress` VALUES (5, 2, 2, 1, 3, 33.33, '2025-11-17 21:04:41', '2025-11-17 21:04:41');
+INSERT INTO `user_course_progress` VALUES (6, 2, 4, 2, 3, 66.67, '2025-11-17 21:04:41', '2025-11-17 21:04:41');
+INSERT INTO `user_course_progress` VALUES (7, 3, 5, 0, 3, 0.00, '2025-11-17 21:04:41', '2025-11-17 21:04:41');
+INSERT INTO `user_course_progress` VALUES (8, 3, 6, 1, 3, 33.33, '2025-11-17 21:04:41', '2025-11-17 21:04:41');
+INSERT INTO `user_course_progress` VALUES (9, 3, 7, 2, 3, 66.67, '2025-11-17 21:04:41', '2025-11-17 21:04:41');
 
 SET FOREIGN_KEY_CHECKS = 1;
-
