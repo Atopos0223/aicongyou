@@ -1,199 +1,271 @@
 .dashboard-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20rpx;
+  background: linear-gradient(135deg, #87ceeb 0%, #ffffff 100%);
+  padding-bottom: var(--spacing-xl);
 }
 
-/* 学生信息卡片 */
-.student-card {
-  background: white;
-  border-radius: 20rpx;
-  padding: 30rpx;
-  margin-bottom: 30rpx;
-  box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.1);
-}
-
-.student-header {
+/* 顶部导航栏 */
+.header-bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-lg);
+  padding-top: calc(var(--spacing-md) + env(safe-area-inset-top));
+  background: var(--bg-gradient);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.avatar {
-  width: 120rpx;
-  height: 120rpx;
-  border-radius: 50%;
-  margin-right: 30rpx;
-  border: 4rpx solid #f0f0f0;
+.back-button {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.2);
+  transition: opacity 0.3s;
 }
 
-.student-basic {
+.back-button:active {
+  opacity: 0.6;
+}
+
+.page-title {
   flex: 1;
+  text-align: center;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-white);
 }
 
-.name {
-  display: block;
-  font-size: 36rpx;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 8rpx;
+.header-placeholder {
+  width: 64rpx;
 }
 
-.id, .class {
-  display: block;
-  font-size: 26rpx;
-  color: #666;
-  margin-bottom: 4rpx;
+/* 内容区域 */
+.dashboard-content {
+  padding: var(--spacing-lg);
 }
 
-.ranking {
+/* 课程总得分卡片 */
+.score-card {
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-lg);
   text-align: center;
 }
 
-.ranking-text {
-  display: block;
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #ff6b35;
+.score-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.score-label {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.score-hint {
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
+}
+
+.score-value {
+  font-size: 80rpx;
+  font-weight: var(--font-weight-bold);
+  color: var(--primary-color);
+  line-height: 1.2;
+}
+
+/* 总排名卡片 */
+.ranking-card {
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.ranking-header {
+  margin-bottom: var(--spacing-md);
+}
+
+.ranking-label {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.ranking-content {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--spacing-xs);
+}
+
+.ranking-number {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--warning-color);
 }
 
 .ranking-total {
-  display: block;
-  font-size: 24rpx;
-  color: #999;
-  margin-top: 4rpx;
+  font-size: var(--font-size-md);
+  color: var(--text-tertiary);
 }
 
-/* 核心数据统计 */
-.core-stats {
-  margin-bottom: 30rpx;
+/* 能力维度达成度分析卡片 */
+.ability-dimensions-card {
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-lg);
 }
 
-.stat-card {
-  background: white;
-  border-radius: 20rpx;
-  padding: 30rpx;
-  margin-bottom: 20rpx;
-  box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.1);
+.card-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--spacing-lg);
 }
 
-.stat-main {
-  text-align: center;
-  margin-bottom: 20rpx;
+.card-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
 }
 
-.stat-value {
-  display: block;
-  font-size: 48rpx;
-  font-weight: bold;
-  color: #07c160;
-  margin-bottom: 10rpx;
+.card-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
 }
 
-.stat-label {
-  font-size: 28rpx;
-  color: #666;
+.dimensions-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
 }
 
-.stat-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 20rpx;
+.dimension-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
 }
 
-.stat-item {
-  background: white;
-  border-radius: 16rpx;
-  padding: 30rpx 20rpx;
-  text-align: center;
-  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.1);
-}
-
-.stat-number {
-  display: block;
-  font-size: 36rpx;
-  font-weight: bold;
-  color: #667eea;
-  margin-bottom: 8rpx;
-}
-
-.stat-desc {
-  font-size: 24rpx;
-  color: #666;
-}
-
-/* 最近活动 */
-.recent-activities {
-  background: white;
-  border-radius: 20rpx;
-  padding: 30rpx;
-  margin-bottom: 30rpx;
-  box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.1);
-}
-
-.section-header {
+.dimension-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30rpx;
 }
 
-.section-title {
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333;
+.dimension-name {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
 }
 
-.section-more {
-  font-size: 26rpx;
-  color: #667eea;
+.dimension-percent {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--primary-color);
 }
 
-.activity-item {
+.dimension-desc {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* 任务列表区域 */
+.tasks-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.task-list-card {
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.task-count {
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
+  margin-left: var(--spacing-xs);
+}
+
+.task-count.warning {
+  color: var(--warning-color);
+  font-weight: var(--font-weight-medium);
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+.task-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20rpx 0;
-  border-bottom: 1rpx solid #f5f5f5;
+  padding: var(--spacing-md);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border-left: 4rpx solid transparent;
 }
 
-.activity-item:last-child {
-  border-bottom: none;
+.task-item.completed {
+  border-left-color: var(--accent-color);
 }
 
-.activity-content {
+.task-item.pending {
+  border-left-color: var(--warning-color);
+}
+
+.task-info {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
 }
 
-.activity-title {
-  display: block;
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 8rpx;
+.task-name {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
 }
 
-.activity-time {
-  display: block;
-  font-size: 24rpx;
-  color: #999;
+.task-score {
+  font-size: var(--font-size-sm);
+  color: var(--accent-color);
 }
 
-.activity-score {
-  font-size: 28rpx;
-  font-weight: bold;
-  color: #07c160;
+.task-deadline {
+  font-size: var(--font-size-sm);
+  color: var(--warning-color);
 }
 
-/* 快捷操作 */
-.quick-actions {
-  margin-bottom: 40rpx;
+.task-date {
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
 }
 
-.action-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20rpx;
-}
-
-.action-buttons van-button {
-  margin: 0;
+.empty-tasks {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--text-tertiary);
+  font-size: var(--font-size-md);
 }

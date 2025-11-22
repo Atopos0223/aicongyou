@@ -2,10 +2,12 @@
   "navigationBarTitleText": "个人数据看板",
   "enablePullDownRefresh": true,
   "backgroundTextStyle": "dark",
+  "navigationStyle": "custom",
   "usingComponents": {
     "van-button": "@vant/weapp/button/index",
     "van-progress": "@vant/weapp/progress/index",
     "van-loading": "@vant/weapp/loading/index",
-    "van-icon": "@vant/weapp/icon/index"
+    "van-icon": "@vant/weapp/icon/index",
+    "van-tag": "@vant/weapp/tag/index"
   }
 }

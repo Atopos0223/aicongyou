@@ -1,8 +1,8 @@
 /* 页面容器 */
 .main-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  padding-bottom: 40rpx;
+  background: linear-gradient(135deg, #87ceeb 0%, #ffffff 100%);
+  padding-bottom: var(--spacing-xl);
 }
 
 /* 顶部Header */
@@ -10,7 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 40rpx 32rpx 32rpx;
+  padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-lg);
 }
 
 .header-left {
@@ -20,13 +20,13 @@
 }
 
 .logo {
-  font-size: 48rpx;
+  font-size: var(--font-size-3xl);
 }
 
 .platform-name {
-  font-size: 48rpx;
-  font-weight: 600;
-  color: #ffffff;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
 }
 
 .header-right {
@@ -34,91 +34,107 @@
   align-items: center;
 }
 
+/* 个人数据看板按钮区域 */
+.dashboard-button-section {
+  padding: 0 var(--spacing-lg) var(--spacing-lg);
+  background: transparent;
+}
+
+.dashboard-button-section .van-button {
+  background: var(--primary-gradient) !important;
+  border: none !important;
+}
+
 .active-courses {
   display: flex;
   align-items: center;
-  gap: 8rpx;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 12rpx 20rpx;
-  border-radius: 40rpx;
+  gap: var(--spacing-xs);
+  background: var(--bg-secondary);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-full);
 }
 
 .active-icon {
-  font-size: 32rpx;
+  font-size: var(--font-size-lg);
 }
 
 .active-text {
-  font-size: 28rpx;
-  color: #ffffff;
+  font-size: var(--font-size-md);
+  color: var(--text-primary);
 }
 
 /* 搜索栏 */
 .search-section {
-  padding: 0 32rpx 24rpx;
+  padding: 0 var(--spacing-lg) var(--spacing-md);
+  background: transparent;
 }
 
 .custom-search {
-  background: rgba(255, 255, 255, 0.15) !important;
+  background: var(--bg-primary) !important;
   border-radius: 40rpx !important;
-  backdrop-filter: blur(10rpx);
 }
 
 .custom-search .van-search__content {
   background: transparent !important;
 }
 
+.custom-search .van-search__action {
+  background: transparent !important;
+}
+
 .custom-search .van-field__input {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
 .custom-search .van-field__input::placeholder {
-  color: rgba(255, 255, 255, 0.6) !important;
+  color: var(--text-tertiary) !important;
 }
 
 /* 学期筛选 */
 .filter-scroll {
-  padding: 0 32rpx 32rpx;
+  padding: 0 var(--spacing-lg) var(--spacing-lg);
   white-space: nowrap;
 }
 
 .filter-section {
   display: inline-flex;
-  gap: 16rpx;
+  gap: var(--spacing-sm);
   min-width: max-content;
 }
 
 .filter-btn {
   flex: none;
-  padding: 0 32rpx;
+  padding: 0 var(--spacing-lg);
   height: 64rpx;
   line-height: 64rpx;
   text-align: center;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 32rpx;
-  font-size: 28rpx;
-  color: #ffffff;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
   transition: all 0.3s;
 }
 
 .filter-btn.active {
-  background: linear-gradient(135deg, #7232dd 0%, #1989fa 100%);
-  color: #ffffff;
-  font-weight: 500;
-  box-shadow: 0 4rpx 12rpx rgba(114, 50, 221, 0.4);
+  background: var(--primary-gradient);
+  color: var(--text-white);
+  font-weight: var(--font-weight-medium);
+  box-shadow: var(--shadow-primary);
 }
 
 /* 课程列表容器 */
 .courses-container {
-  padding: 0 32rpx;
+  padding: 0 var(--spacing-lg);
+  background: transparent;
 }
 
 /* 课程卡片 */
 .course-card {
-  background: #ffffff;
-  border-radius: 24rpx;
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
   overflow: hidden;
-  margin-bottom: 32rpx;
-  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-lg);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -130,82 +146,82 @@
 .course-header {
   width: 100%;
   height: 200rpx;
-  background: linear-gradient(135deg, #1989fa 0%, #7232dd 100%);
+  background: var(--primary-gradient);
 }
 
 /* 课程信息 */
 .course-info {
-  padding: 32rpx;
-  padding-top: 32rpx;
+  padding: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
 }
 
 .course-title {
-  font-size: 48rpx;
-  font-weight: 600;
-  color: #323233;
-  margin-bottom: 16rpx;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
 }
 
 .course-term {
-  font-size: 28rpx;
-  color: #646566;
-  margin-bottom: 16rpx;
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
 }
 
 .course-desc {
-  font-size: 28rpx;
-  color: #646566;
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 
 /* 学习进度 */
 .progress-section {
-  padding: 0 32rpx 32rpx;
+  padding: 0 var(--spacing-lg) var(--spacing-lg);
 }
 
 .progress-label {
-  font-size: 28rpx;
-  color: #323233;
-  margin-bottom: 16rpx;
+  font-size: var(--font-size-md);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
 }
 
 .progress-wrapper {
   display: flex;
   align-items: center;
-  gap: 16rpx;
+  gap: var(--spacing-sm);
 }
 
 .progress-text {
-  font-size: 28rpx;
-  color: #1989fa;
-  font-weight: 500;
+  font-size: var(--font-size-md);
+  color: var(--primary-color);
+  font-weight: var(--font-weight-medium);
   min-width: 80rpx;
 }
 
 /* 统计卡片 */
 .stats-section {
   display: flex;
-  gap: 16rpx;
-  padding: 0 32rpx 32rpx;
+  gap: var(--spacing-sm);
+  padding: 0 var(--spacing-lg) var(--spacing-lg);
 }
 
 .stat-card {
   flex: 1;
-  background: #f7f8fa;
-  border-radius: 16rpx;
-  padding: 24rpx;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
   text-align: center;
 }
 
 .stat-value {
-  font-size: 40rpx;
-  font-weight: 600;
-  margin-bottom: 8rpx;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-xs);
 }
 
 .stat-label {
-  font-size: 24rpx;
-  color: #646566;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
 }
 
 /* 加载中 */
@@ -213,8 +229,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 80rpx 0;
-  color: #ffffff;
+  padding: var(--spacing-xl) 0;
+  color: var(--text-primary);
 }
 
 /* 空状态 */
@@ -222,7 +238,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 80rpx 0;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 28rpx;
+  padding: var(--spacing-xl) 0;
+  color: var(--text-tertiary);
+  font-size: var(--font-size-md);
 }

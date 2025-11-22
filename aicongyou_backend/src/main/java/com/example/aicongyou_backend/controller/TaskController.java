@@ -1,6 +1,6 @@
 package com.example.aicongyou_backend.controller;
 
-
+import com.example.aicongyou_backend.dto.ApiResponse;
 import com.example.aicongyou_backend.entity.Task;
 import com.example.aicongyou_backend.entity.TaskItem;
 import com.example.aicongyou_backend.service.TaskService;
@@ -19,8 +19,11 @@ import java.util.Map;
 @CrossOrigin
 public class TaskController {
 
-    @Autowired
-    private TaskService taskService;
+    private final TaskService taskService;
+
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
@@ -33,18 +36,18 @@ public class TaskController {
     }
 
     @GetMapping("/list")
-    public List<Map<String, Object>> getTaskList(@RequestParam Long studentId) {
-        return taskService.getTasksWithStudentStatus(studentId);
+    public ApiResponse<List<Map<String, Object>>> getTaskList(@RequestParam Long studentId) {
+        return ApiResponse.success(taskService.getTasksWithStudentStatus(studentId));
     }
 
     @GetMapping("/dashboard")
-    public Map<String, Object> getDashboard(@RequestParam Long studentId) {
-        return taskService.getStudentDashboard(studentId);
+    public ApiResponse<Map<String, Object>> getDashboard(@RequestParam Long studentId) {
+        return ApiResponse.success(taskService.getStudentDashboard(studentId));
     }
 
     @GetMapping("/active")
-    public List<Task> getActiveTasks() {
-        return taskService.getActiveTasks();
+    public ApiResponse<List<Task>> getActiveTasks() {
+        return ApiResponse.success(taskService.getActiveTasks());
     }
 
     @GetMapping("/personal")
