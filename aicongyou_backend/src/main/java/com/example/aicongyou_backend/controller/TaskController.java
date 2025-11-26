@@ -25,9 +25,7 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    public TaskController(TaskService taskService) {
-        this.taskService = taskService;
-    }
+
 
     @GetMapping
     public List<TaskItem> listTasks(@RequestParam(value = "taskType", required = false) String taskType,
